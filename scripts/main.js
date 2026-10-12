@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Go to Contact / Send Message', action: () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
     { name: 'Toggle Dark / Light Theme', action: () => { themeBtn && themeBtn.click(); palette?.close(); } },
     { name: 'Print / Save Resume as CV', action: () => { palette?.close(); window.print(); } },
-    { name: 'Download Resume JSON Data', action: () => { window.open('/api/resume/raw', '_blank'); palette?.close(); } },
+    { name: 'Download Resume JSON Data', action: () => { window.open('/resume/resume-data.json', '_blank'); palette?.close(); } },
     { name: 'View GitHub Profile', action: () => { window.open('https://github.com/prathyush123kumar-lgtm', '_blank'); palette?.close(); } },
   ];
 
@@ -208,7 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // Load Resume & Projects Data Dynamically
   // =========================================================================
-  fetch('../resume/resume-data.json')
+  const resumeJsonUrl = window.location.pathname.includes('/pages/') ? '../resume/resume-data.json' : 'resume/resume-data.json';
+  fetch(resumeJsonUrl)
     .then(res => {
       if (!res.ok) throw new Error('Failed to fetch resume-data.json');
       return res.json();

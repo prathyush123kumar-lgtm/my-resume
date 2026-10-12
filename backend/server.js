@@ -113,7 +113,11 @@ app.get('/api/resume/raw', (req, res) => {
 // Serve frontend locally
 if (!isProd) {
   app.use(express.static(path.join(__dirname, '..')));
-  app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../pages/index.html')));
+  app.get('/', (req, res) => {
+    const rootIndex = path.join(__dirname, '../index.html');
+    if (fs.existsSync(rootIndex)) return res.sendFile(rootIndex);
+    res.sendFile(path.join(__dirname, '../pages/index.html'));
+  });
 }
 
 // Global error handler

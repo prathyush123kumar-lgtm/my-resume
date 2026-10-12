@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f5f9fe" />
+  <title>404 — Page Not Found · E Prathyush Kumar</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <style>
+    .not-found-wrap {
+      min-height: calc(100vh - 180px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .not-found-num {
+      font-size: clamp(4.5rem, 12vw, 7.5rem);
+      font-weight: 780;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+    .not-found-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 720;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .not-found-desc {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="E Prathyush Kumar home">
+        <span class="brand-mark" aria-hidden="true">epk.</span>
+        <span>E Prathyush Kumar</span>
+      </a>
+      <div class="nav-links">
+        <a class="button button-primary" href="index.html">← Back to Portfolio</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap not-found-wrap">
+      <div class="not-found-num" aria-hidden="true">404</div>
+      <h1 class="not-found-title">Page not found</h1>
+      <p class="not-found-desc">
+        The page you’re looking for doesn’t exist or may have been moved. Let’s get you back to the main portfolio.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="index.html">Return to Portfolio <span aria-hidden="true">↘</span></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© 2026 E Prathyush Kumar.</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

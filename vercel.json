@@ -4,10 +4,6 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/pages/index"
-    },
-    {
       "source": "/api/resume/raw",
       "destination": "/resume/resume-data.json"
     }
