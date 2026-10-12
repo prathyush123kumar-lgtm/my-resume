@@ -12,6 +12,8 @@ Edge configuration is managed via [`vercel.json`](../vercel.json):
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
   "cleanUrls": true,
   "headers": [
     {
@@ -36,7 +38,9 @@ Edge configuration is managed via [`vercel.json`](../vercel.json):
 ```
 
 ### Key Settings Explained
-- **`"framework": null`:** Explicitly instructs Vercel to select **Other** as the Framework Preset. This prevents Vercel's automated scanner from misidentifying the project as Next.js, eliminating serverless function generation and `FUNCTION_INVOCATION_FAILED` errors.
+- **`"framework": null`:** Explicitly instructs Vercel to select **Other** as the Framework Preset. This prevents Vercel's automated scanner from misidentifying the project as Next.js, eliminating serverless function generation and `500 FUNCTION_INVOCATION_FAILED` errors.
+- **`"buildCommand": null`:** Tells Vercel that no compilation step is needed; skips `npm run build` during deployment.
+- **`"outputDirectory": "."`:** Directs Vercel to publish the repository root directly, resolving and preventing the "Missing public directory" error.
 - **`"cleanUrls": true`:** Automatically routes requests without `.html` extensions (e.g. `/404` loads `404.html`).
 - **`"headers"`:** Enforces HTTP security headers natively at the edge:
   - `X-Content-Type-Options: nosniff` prevents MIME-type sniffing.
