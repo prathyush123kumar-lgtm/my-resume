@@ -10,8 +10,8 @@
   "summary": "Second-year Information Science and Engineering student who builds web projects with Python, HTML and CSS. Comfortable in C and Java, and I use Git and GitHub to manage my work. Looking to join a hackathon team on the web or software side, where I can build and ship a working prototype quickly.",
   "projects": [
     {
-      "title": "Document Conversion Web App",
-      "description": "Building a web app that converts Word to PDF and PDF to Word, and compresses files, so users can handle common document tasks in one place. Built the backend with Python and Flask.",
+      "title": "File Universal — Document Utility",
+      "description": "A clean, simple personal web utility for converting Word to PDF, PDF to Word, merging, and compressing documents. Built with Python and Flask.",
       "techStack": ["Python", "Flask", "HTML", "CSS"],
       "link": "https://github.com/prathyush123kumar-lgtm"
     },

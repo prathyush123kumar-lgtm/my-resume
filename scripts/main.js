@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const t = title.toLowerCase();
     
     // 1. Document Conversion Web App Illustration
-    if (t.includes('document') || t.includes('convert') || t.includes('word') || t.includes('pdf')) {
+    if (t.includes('document') || t.includes('convert') || t.includes('word') || t.includes('pdf') || t.includes('universal')) {
       return `
         <div class="project-visual">
           <div class="mini-window" aria-hidden="true">
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getProjectKicker = (title, techStack) => {
     const t = title.toLowerCase();
-    if (t.includes('document')) return 'Python · Flask';
+    if (t.includes('document') || t.includes('universal')) return 'Python · Flask';
     if (t.includes('lecture')) return 'Student resource';
     if (t.includes('resume')) return 'Personal website';
     return techStack ? techStack.slice(0, 2).join(' · ') : 'Web Project';
