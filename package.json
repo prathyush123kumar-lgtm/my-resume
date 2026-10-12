@@ -1,12 +1,10 @@
 {
+  "name": "resume-site",
+  "private": true,
   "scripts": {
-    "dev": "node backend/server.js",
-    "start": "node backend/server.js"
+    "dev": "node backend/server.js"
   },
   "devDependencies": {
     "prisma": "^5.22.0"
-  },
-  "dependencies": {
-    "@prisma/client": "^5.22.0"
   }
 }

@@ -1,0 +1,4 @@
+# Ignore local backend and database from static frontend deployment
+backend/
+database/
+node_modules/
