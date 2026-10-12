@@ -4,8 +4,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/api/resume/raw",
-      "destination": "/resume/resume-data.json"
+      "source": "/api",
+      "destination": "/api"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
     }
   ]
 }
