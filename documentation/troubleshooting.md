@@ -1,26 +1,54 @@
 # Troubleshooting
 
-## 1. Symptom: NPM commands fail with execution policy error
-- **Error Message:** `File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system.`
-- **Cause:** Windows PowerShell Execution Policy is restricting script execution.
-- **Solution:** 
-  Either run PowerShell as Administrator and execute `Set-ExecutionPolicy RemoteSigned`, or simply use `cmd.exe /c "npm install"` to bypass the PowerShell restriction.
+Common setup, runtime, and development issues and their solutions.
 
-## 2. Symptom: Prisma schema not found
-- **Error Message:** `Error: Could not find Prisma Schema that is required for this command.`
-- **Cause:** You ran `npx prisma db push` inside the `backend` folder, but the schema is located in `database/prisma/schema.prisma`.
-- **Solution:** Run the command with the explicit schema path: 
-  `npx prisma db push --schema=../database/prisma/schema.prisma`
+## 1. PowerShell Script Execution Policy Error
+- **Error:** `File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system.`
+- **Cause:** Windows PowerShell policy restricts running scripts.
+- **Solution:** Run PowerShell with bypassed execution policy:
+  ```powershell
+  Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+  ```
+  Or run npm via CMD:
+  ```cmd
+  cmd.exe /c "npm install"
+  ```
 
-## 3. Symptom: Contact form fails to send (Network Error)
-- **Error Message (Browser Console):** `CORS error` or `Failed to fetch`.
-- **Cause:** The frontend is attempting to reach the backend on `localhost:4000`, but the backend server is not running.
-- **Solution:** Ensure you have opened a terminal in the `backend/` directory and ran `node server.js`. Verify it says "Server running on http://localhost:4000".
+## 2. Prisma Schema Not Found
+- **Error:** `Error: Could not find Prisma Schema that is required for this command.`
+- **Cause:** Running Prisma commands without specifying the relative schema path.
+- **Solution:** Always pass the schema path argument:
+  ```bash
+  npx prisma db push --schema=./database/prisma/schema.prisma
+  ```
 
-## 4. Symptom: "Input too long" error on contact form
-- **Cause:** The user attempted to submit a message longer than 2000 characters, or a name/email exceeding bounds.
-- **Solution:** The backend validation is working exactly as intended.
+## 3. Port Already in Use (EADDRINUSE)
+- **Error:** `Error: listen EADDRINUSE: address already in use :::3000`
+- **Cause:** Another process or previous server instance is already running on port 3000.
+- **Solution:** Change the `PORT` in `backend/.env` (e.g. `PORT=4000`), or terminate the process holding the port:
+  ```powershell
+  # Find and kill process on port 3000
+  netstat -ano | findstr :3000
+  taskkill /PID <PID> /F
+  ```
 
-## 5. Symptom: Broken images on the projects grid
-- **Cause:** The placeholder images were not downloaded locally.
-- **Solution:** Run `node scripts/setup-assets.js` from the root directory to populate the `assets/images/` folder.
+## 4. Contact Form Network Error / Failed to Fetch
+- **Error:** `Network error. Please try again later.` or `Failed to fetch`.
+- **Cause:** The backend server is not running or CORS is blocking the request.
+- **Solution:**
+  1. Start the server with `npm run dev`.
+  2. Verify the server is live by visiting [http://localhost:3000/api/health](http://localhost:3000/api/health).
+  3. Ensure `FRONTEND_ORIGIN` in `backend/.env` matches your browser address.
+
+## 5. Input Too Long Error
+- **Error:** `Input too long`
+- **Cause:** Input exceeds bounds (Name > 100, Email > 150, or Message > 2,000 characters).
+- **Solution:** Reduce message length to comply with server validation limits.
+
+## 6. Database Dev.db Missing or Locked
+- **Error:** `PrismaClientKnownRequestError: The table ContactMessage does not exist`
+- **Cause:** The local SQLite database has not been initialized.
+- **Solution:** Run the schema sync command:
+  ```bash
+  npx prisma db push --schema=./database/prisma/schema.prisma
+  ```

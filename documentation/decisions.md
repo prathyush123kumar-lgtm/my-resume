@@ -1,23 +1,23 @@
 # Architectural Decisions
 
-This document records the major design and architectural choices made during the development of this project.
+Key design choices and architectural rationale for the project.
 
-## 1. Why Vanilla HTML/JS/CSS instead of React/Next.js?
-**Decision:** We chose to build the frontend entirely in Vanilla web technologies.
-**Reason:** Personal portfolios and resume websites are fundamentally static content. Loading a 150KB React bundle just to display text and basic theme-toggling is overkill and hurts Core Web Vitals. By using Vanilla JS and native CSS variables, the site guarantees near-instant load times (100/100 Lighthouse) and extreme simplicity.
+## 1. Vanilla Web Stack over Frontend Frameworks
+- **Decision:** Build the frontend using native HTML5, modern CSS3, and ES6 JavaScript.
+- **Rationale:** A portfolio website is primarily content-driven. Frameworks like React or Next.js introduce build complexity, hydrations overhead, and bundle bloat. Vanilla web standards deliver instant rendering, 100/100 Lighthouse performance, and zero dependency maintenance for the frontend.
 
-## 2. Why a local SQLite database?
-**Decision:** Used SQLite (`dev.db`) instead of PostgreSQL/MongoDB.
-**Reason:** The only stateful requirement for this website is storing incoming contact messages. A full database cluster is expensive and adds unnecessary DevOps overhead. SQLite is a lightweight, zero-configuration file database that perfectly suits low-write applications like a personal contact form.
+## 2. SQLite Database with Prisma ORM
+- **Decision:** Use an embedded SQLite file (`database/dev.db`) managed via Prisma Client.
+- **Rationale:** The application only requires persistent storage for contact form submissions. A full PostgreSQL or MySQL instance adds unnecessary infrastructure costs and configuration complexity. SQLite is zero-configuration and file-based.
 
-## 3. Why separate the Backend from the Frontend?
-**Decision:** We run an Express server on Port 4000 and a static server on Port 3000.
-**Reason:** This allows the frontend to be deployed cheaply/freely on any edge CDN (like GitHub Pages or Netlify). Only the tiny Node.js backend needs to be deployed to a stateful server, significantly reducing hosting costs and surface area for attacks.
+## 3. Decoupled Monorepo Architecture
+- **Decision:** Host static frontend assets and the Express microservice in the same repository while keeping them decoupled.
+- **Rationale:** Enables flexible deployment. In development, Express serves both static files and the API. In production, the frontend can be hosted on a global static edge network (Vercel, Cloudflare Pages), while the backend runs on a stateful Node.js container.
 
-## 4. Why use a JSON file for Resume Data?
-**Decision:** We load `resume-data.json` at runtime via `fetch()`.
-**Reason:** It separates content from presentation. The developer can update their entire website's content simply by editing one JSON file, without ever needing to touch HTML or JavaScript logic.
+## 4. Single-Source Resume Data File
+- **Decision:** Load bio, projects, and skills dynamically from [`resume/resume-data.json`](../resume/resume-data.json).
+- **Rationale:** Separates content from UI presentation. Content updates can be made by editing a single JSON file without altering HTML or styling code.
 
-## 5. Why automated asset downloads?
-**Decision:** Implemented `setup-assets.js`.
-**Reason:** To prevent committing heavy, arbitrary binary files to the git repository during initial development, and to prevent hotlinking external image providers (which is a privacy and performance risk).
+## 5. Pure-CSS Project Vector Illustrations
+- **Decision:** Render mock browser and app window previews using pure CSS rather than external placeholder images.
+- **Rationale:** Eliminates external network requests, avoids hotlinking privacy concerns, prevents broken image links, and aligns with the editorial paper aesthetic.

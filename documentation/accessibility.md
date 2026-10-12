@@ -1,14 +1,33 @@
-# Accessibility (a11y)
+# Accessibility & SEO
 
-This document outlines the accessibility features currently implemented in the project.
+Accessibility (a11y) and SEO standards implemented across the application.
 
-## IMPLEMENTED
-- **Semantic HTML:** Usage of native `<header>`, `<nav>`, `<section>`, `<dialog>`, and `<footer>` tags to provide meaningful document structure to screen readers.
-- **Heading Hierarchy:** Strictly follows H1 -> H2 -> H3 nesting on the main page.
-- **Form Labels:** The contact form uses explicit `<label for="id">` bindings for all inputs and textareas, ensuring screen readers announce inputs correctly.
-- **Required Fields:** Native HTML5 `required` attributes are used on form fields.
+## Accessibility (a11y)
 
-## NOT IMPLEMENTED / Recommended Improvements
-- **ARIA Attributes:** The custom Command Palette modal and filtering system lack deep `aria-expanded` or `aria-controls` states.
-- **Focus Trapping:** The Command Palette `<dialog>` does not currently trap keyboard focus perfectly when opened.
-- **Alt Text:** Project images currently use generic alt text (e.g., "Project Title screenshot"). This should be updated to descriptive text in the JSON data.
+### 1. Semantic Structure
+- Uses native semantic HTML5 elements: `<header>`, `<nav>`, `<main>`, `<section>`, `<aside>`, `<article>`, `<dialog>`, and `<footer>`.
+- Logical heading hierarchy from `<h1>` (hero title) down to `<h2>` (section titles) and `<h3>` (cards and groups).
+
+### 2. Keyboard Navigation
+- All interactive elements (links, buttons, filter tags, dialogs) are natively focusable.
+- Visible focus rings styled with CSS variable `--line-focus` (`#4b8fe2`).
+- Global keyboard shortcut `Ctrl + K` (or `Cmd + K`) opens the Command Palette.
+- Esc key or backdrop clicks close the `<dialog>` modal.
+
+### 3. Forms & Live Regions
+- All form controls utilize explicit `<label for="...">` associations.
+- The submission status message uses `role="status"` for assistive technology announcements.
+- Form inputs include standard HTML5 validation attributes (`required`, `type="email"`).
+
+### 4. Motion & Contrast
+- **Reduced Motion:** Respects user system preferences via `@media (prefers-reduced-motion: reduce)`, disabling animations and smooth scrolling.
+- **Contrast:** Slate ink (`#17202c`) on paper surface (`#f5f9fe`) provides high contrast conforming to WCAG AA guidelines.
+
+---
+
+## SEO Standards
+
+- **Metadata:** Each page includes `<title>`, descriptive `<meta name="description">`, responsive `<meta name="viewport">`, and `<meta name="theme-color">`.
+- **Pre-rendered HTML:** The core structure and project cards are defined directly in HTML, ensuring crawlers can parse content without waiting for JavaScript execution.
+- **Security on External Links:** All external links include `target="_blank"` and `rel="noopener noreferrer"`.
+- **Clean URLs:** Standard page anchor routes (`#home`, `#about`, `#projects`, `#resume`, `#contact`).

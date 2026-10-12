@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "cd backend && npm run dev",
-    "start": "cd backend && npm start"
+    "dev": "node backend/server.js",
+    "start": "node backend/server.js"
   },
   "devDependencies": {
     "prisma": "^5.22.0"

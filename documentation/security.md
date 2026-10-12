@@ -1,43 +1,34 @@
 # Security
 
-Security has been a foundational priority, specifically concerning the backend Express API that handles user input.
+Security safeguards implemented across the frontend and backend.
 
-## IMPLEMENTED Protections
+## 1. HTTP Security Headers
+- **Implementation:** `helmet()` middleware in [`backend/server.js`](../backend/server.js).
+- **Protections:** Automatically enables secure headers including `X-Content-Type-Options`, `X-Frame-Options` (clickjacking prevention), and strict transport policies.
 
-**1. HTTP Header Hardening**
-- **Implementation:** `helmet` middleware in `server.js`.
-- **Protects against:** Clickjacking, MIME-sniffing, XSS, and enforces strict transport security (HSTS).
+## 2. Cross-Origin Resource Sharing (CORS)
+- **Implementation:** `cors()` middleware in [`backend/server.js`](../backend/server.js).
+- **Configuration:** Constrained via the `FRONTEND_ORIGIN` environment variable. In development, defaults to localhost (`http://localhost:3000`, `http://localhost:4000`).
 
-**2. Cross-Origin Resource Sharing (CORS)**
-- **Implementation:** `cors()` middleware restricting access to the frontend origin (defaults to `*` but can be constrained via `FRONTEND_ORIGIN` env var).
+## 3. Rate Limiting
+- **Implementation:** `express-rate-limit`.
+- **General API Limiter:** 100 requests per 15-minute window for standard API endpoints.
+- **Contact Form Limiter:** 5 requests per 15-minute window per IP to prevent spam submissions and abuse.
 
-**3. Rate Limiting**
-- **Implementation:** `express-rate-limit` in `server.js`.
-- **Protects against:** Brute force and Denial of Service (DoS) attacks.
-- **Configuration:** 
-  - Standard API routes: 100 requests per 15 minutes.
-  - Contact Form (`/api/contact`): 5 requests per 15 minutes.
-
-**4. Payload Size Limits**
+## 4. Payload Size Limits
 - **Implementation:** `express.json({ limit: '10kb' })`.
-- **Protects against:** Payload stuffing / memory exhaustion attacks.
+- **Protections:** Prevents oversized payloads and memory exhaustion attacks.
 
-**5. Input Validation**
-- **Implementation:** Custom logic in `/api/contact`.
-- **Protects against:** Invalid data formats. Email fields must match a valid regex pattern. Hard string length limits are enforced (e.g., messages max 2000 characters).
+## 5. Input Validation & Bounds
+- **Email Validation:** Checked against an RFC-compliant email regex pattern.
+- **Field Length Limits:**
+  - `name`: maximum 100 characters
+  - `email`: maximum 150 characters
+  - `message`: maximum 2,000 characters
 
-**6. XSS Mitigation (Output Escaping / Input Sanitization)**
-- **Implementation:** Custom string replacement sanitization in `/api/contact`.
-- **Protects against:** Cross-Site Scripting (XSS). `<` and `>` characters are converted to `&lt;` and `&gt;` before being stored in the database.
+## 6. XSS Mitigation (Stored XSS)
+- **Implementation:** Input sanitization function converts `<` and `>` into HTML entities (`&lt;` and `&gt;`) before database persistence.
 
-## PARTIALLY IMPLEMENTED
-
-**1. Bot Protection (CAPTCHA)**
-- **Implementation:** Turnstile logic exists but requires secret keys to activate.
-
-## NOT APPLICABLE
-- **Authentication/Authorization:** This is a public portfolio; there is no admin dashboard or user login system implemented.
-
-## Security Improvements Recommended
-- **Content Security Policy (CSP):** While Helmet provides basic CSP, a strictly defined CSP meta tag on the frontend `index.html` would further prevent unauthorized script execution.
-- **Advanced Sanitization:** Replace the regex-based HTML escaping with a robust library like `DOMPurify` if complex HTML needs to be parsed in the future.
+## 7. Bot Protection (Cloudflare Turnstile)
+- **Status:** Integrated backend check (`TURNSTILE_SECRET_KEY`).
+- **Behavior:** When `TURNSTILE_SECRET_KEY` is present in `.env`, the backend strictly requires and verifies the `cfTurnstileResponse` token. When omitted, development bypass is active.

@@ -1,49 +1,77 @@
-# Features
+# Features & UI Components
 
-## IMPLEMENTED
+A breakdown of implemented features, UI components, and the resume data schema.
 
-**1. Dynamic Data Loading**
-- **What it does:** The UI is populated dynamically from a single JSON file.
-- **Where:** `scripts/main.js` and `resume/resume-data.json`.
-- **How it works:** JavaScript fetches the JSON on page load and dynamically builds the Project Cards and Skills Timeline DOM elements.
+## Implemented Features
 
-**2. Dark/Light Theme Engine**
-- **What it does:** Allows users to toggle between dark and light modes, persisting the choice.
-- **Where:** `styles/global.css` (CSS variables) and `scripts/main.js` (localStorage).
-- **How it works:** Toggles a `data-theme` attribute on the `<html>` tag.
+### 1. Dynamic Resume & Project Rendering
+- **Data Source:** [`resume/resume-data.json`](../resume/resume-data.json)
+- **Controller:** [`scripts/main.js`](../scripts/main.js)
+- **Mechanism:** On page load, client-side JavaScript reads the JSON data and dynamically renders project cards, tech tags, education details, and grouped skills pills.
 
-**3. Skeleton Loading States**
-- **What it does:** Displays pulsing placeholders while data is fetching.
-- **Where:** `pages/index.html` (default DOM state) and `styles/global.css` (CSS animations).
+### 2. Light & Dark Theme Engine
+- **Implementation:** Native CSS custom properties in [`styles/global.css`](../styles/global.css) and `localStorage` state in [`scripts/main.js`](../scripts/main.js).
+- **Default:** Clean Light Paper palette (`#f5f9fe`).
+- **Toggle:** Clicking the sun/moon icon toggles `data-theme="dark"` on `<html>` and updates the icon.
 
-**4. Command Palette (Ctrl+K)**
-- **What it does:** A keyboard-driven quick menu for navigating the site or executing commands.
-- **Where:** `pages/index.html` (modal), `styles/global.css` (Glassmorphism backdrop), `scripts/main.js` (Event listener and search logic).
+### 3. Pure-CSS Project Vector Illustrations
+Instead of heavy external images or placeholder files, each project card renders a stylized pure-CSS window mockup:
+- **File Tools:** Mini editor window with document rows and a *File tools* pill (used for Document Conversion app).
+- **Learning Hub:** Angled layout with sidebar navigation, banner, and cards (used for Lectures Website).
+- **Personal Site:** Mini portfolio mockup with header mark and hero grid (used for Resume Website).
 
-**5. Project Filtering**
-- **What it does:** Allows filtering of the projects grid by clicking on technology tags.
-- **Where:** `scripts/main.js`.
-- **How it works:** Dynamically extracts unique tags from the JSON and re-renders the grid based on the active filter.
+### 4. Interactive Project Filtering
+- Generates filter buttons dynamically from the unique `techStack` tags found in [`resume/resume-data.json`](../resume/resume-data.json).
+- Clicking a category (*Python*, *Flask*, *HTML*, *CSS*, *JavaScript*) filters cards with instant feedback; clicking *All* resets the view.
 
-**6. Interactive Timeline**
-- **What it does:** Displays education and skills in a staggered vertical timeline.
-- **Where:** `styles/global.css`.
+### 5. Command Palette (`Ctrl + K`)
+- Built using the native HTML `<dialog id="command-palette">` element.
+- Triggered by pressing `Ctrl + K` (or `Cmd + K`) or clicking the search button in the navigation header.
+- Filters commands in real-time to jump to sections, toggle themes, print the CV, or open GitHub.
 
-**7. Secure Contact Form API**
-- **What it does:** Accepts contact messages and saves them to a database securely.
-- **Where:** `backend/server.js`.
-- **How it works:** Uses Express, validates email regex, strips HTML tags (XSS protection), checks length limits, and limits requests (rate limiting).
+### 6. Education & Skills Panels
+- **Education:** Structured timeline card highlighting university, degree, and semester.
+- **Skills:** Grouped badge lists categorized into *Programming Languages*, *Web & Frameworks*, *Tools & Platforms*, and *Spoken Languages*.
 
-**8. Custom 404 Page**
-- **What it does:** Branded error page for broken links.
-- **Where:** `pages/404.html`.
+### 7. Interactive Contact Form
+- Collects name, email, and message.
+- Submits asynchronously to `POST /api/contact` with immediate UI status feedback (sending, success, error) and form reset on completion.
 
-## PARTIALLY IMPLEMENTED
+### 8. Print CV Support
+- The *Print / save CV* button invokes `window.print()`.
+- A dedicated `@media print` stylesheet strips navigation, action buttons, and form inputs for a pristine printed resume.
 
-**1. CAPTCHA / Bot Protection**
-- **What it does:** Cloudflare Turnstile integration to prevent bot spam.
-- **Status:** The HTML placeholder and the backend logic check exist, but it requires actual Cloudflare keys to be injected to function fully.
+---
 
-## PLANNED / NOT YET IMPLEMENTED
-- Search functionality inside the projects grid (text-based).
-- Automated CI/CD deployment pipeline.
+## Resume Data Schema
+
+[`resume/resume-data.json`](../resume/resume-data.json) structure:
+
+```json
+{
+  "name": "E Prathyush Kumar",
+  "email": "prathyush123kumar@gmail.com",
+  "github": "https://github.com/prathyush123kumar-lgtm",
+  "education": {
+    "degree": "B.Tech Information Science and Engineering",
+    "institution": "St. Aloysius (Deemed to be University), Mangaluru",
+    "year": "2nd Year, 3rd Semester"
+  },
+  "summary": "Short bio paragraph...",
+  "projects": [
+    {
+      "title": "Document Conversion Web App",
+      "description": "App description...",
+      "techStack": ["Python", "Flask", "HTML", "CSS"],
+      "link": "https://github.com/..."
+    }
+  ],
+  "skills": {
+    "languages": ["Python", "C", "Java"],
+    "web": ["HTML", "CSS", "Flask", "Node.js", "Express"],
+    "tools": ["Git", "GitHub"]
+  },
+  "spoken_languages": ["English", "Hindi", "Kannada", "Malayalam"],
+  "hackathon_interest": "Areas of interest..."
+}
+```

@@ -1,42 +1,60 @@
 # Architecture
 
-The application is built using a lightweight decoupled architecture. Although both the frontend and backend reside in the same repository (Monorepo-style), they function independently.
+The application uses a lightweight, decoupled architecture. The static frontend and backend API reside in a single repository while remaining logically separated.
 
 ## Architecture Diagram
 
 ```text
 Browser (Client)
    │
-   ├── [Static Request] ──> Frontend Server (Port 3000)
-   │                           ├── pages/index.html
-   │                           ├── styles/global.css
-   │                           └── scripts/main.js
+   ├── [Static Request] ──> Express Server (Port 3000 / 4000)
+   │                           ├── pages/index.html (Semantic Markup)
+   │                           ├── styles/global.css (Tokens & Layout)
+   │                           └── scripts/main.js (Frontend Controller)
    │
-   ├── [Fetch JSON] ──────> Local Filesystem
+   ├── [Client Fetch] ────> Static JSON File
    │                           └── resume/resume-data.json
    │
-   └── [POST API] ────────> Backend Express Server (Port 4000)
+   └── [POST API] ────────> Express REST API (/api/contact)
                                ├── Security Middleware (Helmet, CORS)
-                               ├── Rate Limiter
-                               ├── API Route (/api/contact)
-                               │      └── Sanitization & Validation
+                               ├── Rate Limiter (express-rate-limit)
+                               ├── Validation & XSS Sanitization
                                └── Prisma ORM
-                                      └── SQLite Database (dev.db)
+                                      └── SQLite Database (database/dev.db)
 ```
 
-## Frontend Architecture
-The frontend is strictly Vanilla HTML, CSS, and JS. 
-- **`index.html`** provides the semantic skeleton.
-- **`main.js`** handles the imperative UI logic (Theme toggling, fetching data, DOM manipulation for the timeline and project filters).
-- **Data Flow:** The frontend fetches data from `../resume/resume-data.json` at runtime to populate the project cards and skills timeline.
+## Directory Structure
 
-## Backend Architecture
-A micro-backend built with Express.js.
-- **Entry point:** `backend/server.js`.
-- It exists exclusively to handle dynamic, stateful operations that a static site cannot (specifically, securely handling contact form submissions).
-- Includes strict rate-limiting to prevent abuse.
+```text
+resume-site/
+├── backend/            # Express.js server, middleware, routes, and .env
+├── database/           # SQLite database (dev.db) and Prisma schema
+├── documentation/      # Project documentation suite
+├── pages/              # HTML entry points (index.html, 404.html)
+├── resume/             # Central resume data source (resume-data.json)
+├── scripts/            # Client-side JavaScript (main.js)
+├── styles/             # Stylesheet & design tokens (global.css)
+├── package.json        # Root scripts and Prisma CLI dependencies
+└── vercel.json         # Static deployment configuration
+```
 
-## Database Architecture
-- **Engine:** SQLite (local file `dev.db`).
-- **ORM:** Prisma Client.
-- The database is currently used solely to store incoming contact messages safely.
+## Technology Stack
+
+- **Frontend:** Vanilla HTML5, CSS3 with Custom Properties, ES6 JavaScript. Zero frontend frameworks for instant rendering and minimal bundle footprint.
+- **Backend:** Node.js, Express.js.
+- **Database:** SQLite with Prisma ORM (v5).
+- **Security:** Helmet, CORS, express-rate-limit.
+
+## System Layers
+
+### 1. Frontend Layer
+- **`pages/index.html`:** Accessible HTML structure with semantic sections (`#home`, `#about`, `#projects`, `#resume`, `#contact`).
+- **`styles/global.css`:** Editorial paper design system, responsive grid layouts, custom CSS vector illustrations, and dark mode tokens.
+- **`scripts/main.js`:** Client-side controller for theme toggling, Command Palette (`Ctrl+K`), dynamic JSON fetching, project category filtering, and contact form submission.
+
+### 2. Backend Layer
+- **`backend/server.js`:** Lightweight REST API. Handles contact messages, applies rate limits (5 requests / 15 min for contact form), sanitizes inputs, and serves the static frontend during local development.
+
+### 3. Data Layer
+- **`resume/resume-data.json`:** Single source of truth for resume bio, projects, skills, and education.
+- **`database/dev.db`:** File-based SQLite database accessed via Prisma ORM for storing submitted contact messages.
