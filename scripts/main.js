@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // Load Resume & Projects Data Dynamically
   // =========================================================================
-  const resumeJsonUrl = window.location.pathname.includes('/pages/') ? '../resume/resume-data.json' : 'resume/resume-data.json';
+  const resumeJsonUrl = 'resume/resume-data.json';
   fetch(resumeJsonUrl)
     .then(res => {
       if (!res.ok) throw new Error('Failed to fetch resume-data.json');
@@ -328,48 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Notice: Loaded static DOM fallback; remote JSON fetch notice:', err.message);
     });
 
-  // =========================================================================
-  // Contact Form Submission
-  // =========================================================================
-  const contactForm = document.getElementById('contact-form');
-  const contactStatus = document.getElementById('contact-status');
-
-  if (contactForm && contactStatus) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      contactStatus.textContent = 'Sending message...';
-      contactStatus.style.color = 'var(--muted)';
-
-      const formData = new FormData(contactForm);
-      const payload = {
-        name: formData.get('name')?.trim() || '',
-        email: formData.get('email')?.trim() || '',
-        message: formData.get('message')?.trim() || '',
-        cfTurnstileResponse: formData.get('cf-turnstile-response') || ''
-      };
-
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          contactStatus.textContent = '✓ Message sent successfully! Thanks for reaching out.';
-          contactStatus.style.color = '#15803d';
-          contactForm.reset();
-        } else {
-          contactStatus.textContent = result.error || 'Failed to send message. Please try email instead.';
-          contactStatus.style.color = '#dc2626';
-        }
-      } catch (err) {
-        console.error('Contact error:', err);
-        contactStatus.textContent = 'Network error. Please try sending via email instead.';
-        contactStatus.style.color = '#dc2626';
-      }
-    });
-  }
+  // Contact section now uses accessible direct mailto: link (no form submit handler needed)
 });
+

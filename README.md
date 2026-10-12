@@ -1,57 +1,42 @@
 # E Prathyush Kumar — Personal Portfolio & Resume
 
-A fast, accessible, full-stack personal portfolio and resume website built with vanilla web standards and an Express.js / SQLite backend.
+A fast, accessible, lightweight personal portfolio and developer resume website built with vanilla web standards and hosted on modern edge CDN infrastructure.
+
+---
 
 ## Key Features
 
-- **Editorial Paper Aesthetic:** Soft light paper palette (`#f5f9fe`) with deep slate typography and dark mode toggle.
-- **Dynamic Content:** Projects, skills, and bio load dynamically from [`resume/resume-data.json`](resume/resume-data.json).
-- **CSS Vector Window Illustrations:** Pure CSS mockups for project cards without external image assets.
-- **Project Filtering:** Dynamic category filter pills (*Python*, *Flask*, *HTML*, *CSS*, *JavaScript*).
-- **Command Palette:** Keyboard navigation and command menu via `Ctrl + K`.
-- **Printable CV:** Dedicated print stylesheet for clean CV exports via `window.print()`.
-- **Contact Form API:** Express backend with rate limiting, input validation, and SQLite persistence.
+- **Editorial Paper Aesthetic:** Soft light paper canvas (`#f5f9fe`) with deep slate typography and built-in dark mode toggle.
+- **Single-Source Data Model:** Projects, skills, education, and bio load dynamically from [`resume/resume-data.json`](resume/resume-data.json).
+- **Pure-CSS Window Illustrations:** Interactive, illustrative project mockups rendered entirely in CSS without external image bloat.
+- **Interactive Project Filtering:** Instant category filter pills (*Python*, *Flask*, *HTML*, *CSS*, *JavaScript*).
+- **Command Palette (`Ctrl + K`):** Fast keyboard-driven section search and navigation modal via native `<dialog>`.
+- **Printable CV:** Dedicated print stylesheet (`@media print`) formatting the site as a clean, multi-page paper CV.
+- **Accessible Direct Contact:** Clean `mailto:` direct contact link opening the visitor's native email client without database overhead.
+
+---
 
 ## Quick Start
 
-### 1. Install Dependencies
+### 1. Run Local Development Server
 ```bash
-# Root Prisma CLI dependencies
-npm install
+# Clone the repository
+git clone https://github.com/prathyush123kumar-lgtm/my-resume.git
+cd resume-site
 
-# Backend Express dependencies
-cd backend
-npm install
-cd ..
-```
-
-### 2. Initialize Database
-```bash
-npx prisma db push --schema=./database/prisma/schema.prisma
-```
-
-### 3. Run Development Server
-```bash
+# Start the local static preview
 npm run dev
 ```
 
-The site will be available at [http://localhost:3000/](http://localhost:3000/).
+The site will be live at [http://localhost:3000/](http://localhost:3000/).
+
+---
 
 ## Documentation
 
-Full documentation is available in the [`documentation/`](documentation/README.md) directory:
+Comprehensive project documentation is organized in the [`documentation/`](documentation/) directory:
 
-- [Setup Guide](documentation/setup.md)
-- [Architecture & Tech Stack](documentation/architecture.md)
-- [Features & Components](documentation/features.md)
-- [Pages Overview](documentation/pages.md)
-- [Backend API & Database](documentation/backend.md)
-- [Configuration (.env)](documentation/configuration.md)
-- [Security](documentation/security.md)
-- [Accessibility & SEO](documentation/accessibility.md)
-- [Deployment](documentation/deployment.md)
-- [Testing Guide](documentation/testing.md)
-- [Troubleshooting](documentation/troubleshooting.md)
-- [Design Decisions](documentation/decisions.md)
-- [Future Plans](documentation/future-plans.md)
-- [Changelog](documentation/changelog.md)
+- [**Architecture & Design System**](documentation/ARCHITECTURE.md) — System design, frontend structure, CSS tokens, and data flow.
+- [**Deployment & CI/CD**](documentation/DEPLOYMENT.md) — Vercel edge configuration, HTTP security headers, and GitHub Actions workflow.
+- [**Development & Testing**](documentation/DEVELOPMENT.md) — Local scripts, updating resume content, and verification procedures.
+
