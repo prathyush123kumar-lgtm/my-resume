@@ -2,37 +2,44 @@
   "name": "E Prathyush Kumar",
   "email": "prathyush123kumar@gmail.com",
   "github": "https://github.com/prathyush123kumar-lgtm",
+  "linkedin": "https://www.linkedin.com/in/e-prathyush-kumar",
   "education": {
     "degree": "B.Tech Information Science and Engineering",
     "institution": "St. Aloysius (Deemed to be University), Mangaluru",
     "year": "2nd Year, 3rd Semester"
   },
-  "summary": "Second-year Information Science and Engineering student who builds web projects with Python, HTML and CSS. Comfortable in C and Java, and I use Git and GitHub to manage my work. Looking to join a hackathon team on the web or software side, where I can build and ship a working prototype quickly.",
+  "summary": "I'm an Information Science and Engineering student at St. Aloysius. I build small Python and Flask tools, work on web projects, and am interested in joining hackathon teams across backend and frontend development.",
   "projects": [
     {
       "title": "File Universal — Document Utility",
-      "description": "A clean, simple personal web utility for converting Word to PDF, PDF to Word, merging, and compressing documents. Built with Python and Flask.",
-      "techStack": ["Python", "Flask", "HTML", "CSS"],
-      "link": "https://github.com/prathyush123kumar-lgtm"
+      "status": "In Progress",
+      "description": "A clean, private web utility for converting Word to PDF, PDF to Word, merging, and compressing documents. Built with Python and Flask.",
+      "purpose": "Local document conversion and compression utility without third-party file uploads.",
+      "problem": "Public online converters often impose strict file limits, expose sensitive documents, and clutter the experience with ads.",
+      "techStack": ["Python", "Flask", "HTML", "CSS"]
     },
     {
-      "title": "Lectures Website",
-      "description": "Built a website that organizes lecture content in one place so students can find it easily.",
-      "techStack": ["HTML", "CSS"],
-      "link": "https://github.com/prathyush123kumar-lgtm"
+      "title": "Lectures Website (Planned Concept)",
+      "status": "Future Scope / Planned",
+      "description": "Planned concept for a central place to organize lecture notes and course resources so students can find study materials more easily.",
+      "purpose": "Proposed concept for a centralized lecture-resource website.",
+      "problem": "Course materials are usually scattered across chat groups and expired cloud links before semester examinations.",
+      "techStack": []
     },
     {
       "title": "Personal Resume Website",
-      "description": "Designed and built a personal portfolio site that presents my skills, education and projects.",
-      "techStack": ["HTML", "CSS", "JavaScript", "Node.js"],
-      "link": "#"
+      "status": "Completed / Active",
+      "description": "A lightweight personal portfolio and printable resume designed to document coursework, projects, and technical skills.",
+      "purpose": "Fast, accessible developer portfolio with dark theme support and print stylesheet.",
+      "problem": "Standard developer templates rely on heavy UI libraries and look generic rather than representing authentic individual work.",
+      "techStack": ["HTML", "CSS", "JavaScript", "Node.js"]
     }
   ],
   "skills": {
     "languages": ["Python", "C", "Java"],
-    "web": ["HTML", "CSS", "Flask", "Node.js", "Express"],
-    "tools": ["Git", "GitHub"]
+    "web": ["HTML", "CSS", "JavaScript", "Flask", "Node.js", "Express"],
+    "tools": ["Git", "GitHub", "VS Code", "SQLite"]
   },
   "spoken_languages": ["English", "Hindi", "Kannada", "Malayalam"],
-  "hackathon_interest": "Web and software development. Happy to work on the front end or the Python backend of a team project."
+  "hackathon_interest": "Web and software development. Interested in building working prototypes, Python backends, or clean responsive frontends in a team setting."
 }

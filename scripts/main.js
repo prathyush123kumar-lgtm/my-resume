@@ -1,38 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Update year in footer
+  // 1. Current Year in Footer
   const yearEl = document.getElementById('year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
   // =========================================================================
-  // Theme Toggle Logic
+  // 2. Theme Toggle (Dark Navy Default with Refined Light Canvas)
   // =========================================================================
   const themeBtn = document.getElementById('themeBtn');
-  
+
   const updateThemeUI = (theme) => {
     document.documentElement.setAttribute('data-theme', theme);
     if (themeBtn) {
       const icon = themeBtn.querySelector('.theme-icon');
       const label = themeBtn.querySelector('.theme-label');
       if (icon) {
-        // Show moon in light mode (to indicate clicking will switch to dark)
-        // Show sun in dark mode (to indicate clicking will switch to light)
+        // In dark mode: show sun to switch to light
+        // In light mode: show moon to switch to dark
         icon.textContent = theme === 'dark' ? '☀️' : '🌙';
       }
       if (label) {
         label.textContent = theme === 'dark' ? 'Light' : 'Dark';
       }
     }
+    // Update theme-color meta tag for browser address bar
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#0c131e' : '#f8fafc');
+    }
   };
 
-  // Default to light (as designed in user's mockup), unless previously set
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  // Default to dark navy theme per user design requirement
+  const savedTheme = localStorage.getItem('theme') || 'dark';
   updateThemeUI(savedTheme);
 
   if (themeBtn) {
     themeBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       localStorage.setItem('theme', newTheme);
       updateThemeUI(newTheme);
@@ -40,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // Command Palette Logic (Ctrl + K)
+  // 3. Command Palette Logic (Ctrl + K / Cmd + K)
   // =========================================================================
   const palette = document.getElementById('command-palette');
   const search = document.getElementById('palette-search');
   const results = document.getElementById('palette-results');
   const paletteOpenBtn = document.getElementById('paletteOpenBtn');
-  
+
   const openPalette = () => {
     if (palette && !palette.open) {
       palette.showModal();
@@ -78,12 +83,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const commands = [
     { name: 'Go to About section', action: () => { document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
     { name: 'Go to Featured Projects', action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
-    { name: 'Go to Education & Background', action: () => { document.getElementById('resume')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
-    { name: 'Go to Contact / Send Message', action: () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'View Project: File Universal (In Progress)', action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'View Project: Personal Resume Website', action: () => { document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'View Concept: Lectures Website (Future Scope)', action: () => { document.getElementById('future-scope')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'Go to Academic Education', action: () => { document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'Go to Technical Skills', action: () => { document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'Go to Contact / Direct Email', action: () => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); palette?.close(); } },
+    { name: 'Compose Email via Gmail (new tab)', action: () => { window.open('https://mail.google.com/mail/?view=cm&fs=1&to=prathyush123kumar@gmail.com&su=Contact%20from%20Portfolio', '_blank'); palette?.close(); } },
+    { name: 'Copy Email Address (prathyush123kumar@gmail.com)', action: () => { document.getElementById('copyEmailBtn')?.click(); palette?.close(); } },
     { name: 'Toggle Dark / Light Theme', action: () => { themeBtn && themeBtn.click(); palette?.close(); } },
-    { name: 'Print / Save Resume as CV', action: () => { palette?.close(); window.print(); } },
-    { name: 'Download Resume JSON Data', action: () => { window.open('/resume/resume-data.json', '_blank'); palette?.close(); } },
+    { name: 'Print / Open CV (PDF in new tab)', action: () => { window.open('resume/E_Prathyush_Kumar_Resume.pdf', '_blank'); palette?.close(); } },
+    { name: 'Download CV (PDF)', action: () => { const a = document.createElement('a'); a.href = 'resume/E_Prathyush_Kumar_Resume.pdf'; a.download = 'E_Prathyush_Kumar_Resume.pdf'; a.click(); palette?.close(); } },
+    { name: 'Download Resume JSON Data', action: () => { window.open('resume/resume-data.json', '_blank'); palette?.close(); } },
     { name: 'View GitHub Profile', action: () => { window.open('https://github.com/prathyush123kumar-lgtm', '_blank'); palette?.close(); } },
+    { name: 'View LinkedIn Profile', action: () => { window.open('https://www.linkedin.com/in/e-prathyush-kumar', '_blank'); palette?.close(); } },
   ];
 
   const renderPaletteCommands = (query) => {
@@ -91,10 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
     results.innerHTML = '';
     const q = query.toLowerCase().trim();
     const filtered = commands.filter(c => c.name.toLowerCase().includes(q));
-    
+
     if (filtered.length === 0) {
       const emptyLi = document.createElement('li');
-      emptyLi.style.color = 'var(--muted)';
+      emptyLi.className = 'palette-empty';
       emptyLi.textContent = 'No matching commands found';
       results.appendChild(emptyLi);
       return;
@@ -102,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filtered.forEach(cmd => {
       const li = document.createElement('li');
-      li.innerHTML = `<span>${cmd.name}</span><span style="font-size:0.75rem; color:var(--muted)">↵</span>`;
+      li.innerHTML = `<span>${cmd.name}</span><kbd aria-hidden="true">↵</kbd>`;
       li.addEventListener('click', cmd.action);
       results.appendChild(li);
     });
@@ -115,219 +128,380 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // Project Illustrative Visual Helpers
+  // 4. Project Filtering Functionality
   // =========================================================================
-  const getProjectVisualHtml = (title, techStack) => {
-    const t = title.toLowerCase();
-    
-    // 1. Document Conversion Web App Illustration
-    if (t.includes('document') || t.includes('convert') || t.includes('word') || t.includes('pdf') || t.includes('universal')) {
-      return `
-        <div class="project-visual">
-          <div class="mini-window" aria-hidden="true">
-            <div class="window-bar"><i></i><i></i><i></i></div>
-            <div class="mock-doc-row">
-              <span class="mock-file"></span>
-              <div style="flex:1">
-                <div class="mock-line"></div>
-                <div class="mock-line short" style="margin-top:6px"></div>
-              </div>
-            </div>
-            <div class="mock-doc-row">
-              <span class="mock-file"></span>
-              <div style="flex:1">
-                <div class="mock-line" style="width:48%"></div>
-                <div class="mock-line short" style="margin-top:6px"></div>
-              </div>
-            </div>
-          </div>
-          <span class="visual-label">File tools</span>
-        </div>
-      `;
+  const filtersContainer = document.getElementById('project-filters');
+  const featuredCard = document.querySelector('.featured-project-card');
+  const supportingCards = document.querySelectorAll('.supporting-project-card');
+  const supportingGrid = document.querySelector('.supporting-projects-grid');
+  let currentActiveTag = 'All';
+
+  const filterProjects = (activeFilter) => {
+    currentActiveTag = activeFilter;
+    let visibleCount = 0;
+
+    // Filter featured card
+    if (featuredCard) {
+      const tech = featuredCard.getAttribute('data-tech') || '';
+      const matches = activeFilter === 'All' || tech.split(' ').includes(activeFilter);
+      featuredCard.style.display = matches ? 'block' : 'none';
+      if (matches) visibleCount++;
     }
 
-    // 2. Lectures Website Illustration
-    if (t.includes('lecture') || t.includes('learn') || t.includes('student') || t.includes('resource')) {
-      return `
-        <div class="project-visual visual-blue">
-          <div class="lecture-layout" aria-hidden="true">
-            <div class="lecture-side"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="lecture-main">
-              <div class="lecture-banner"></div>
-              <div class="lecture-cards"><i></i><i></i><i></i><i></i></div>
-            </div>
-          </div>
-          <span class="visual-label">Learning hub</span>
-        </div>
-      `;
+    // Filter supporting cards
+    let supportingVisible = 0;
+    supportingCards.forEach(card => {
+      const tech = card.getAttribute('data-tech') || '';
+      const matches = activeFilter === 'All' || tech.split(' ').includes(activeFilter);
+      card.style.display = matches ? 'flex' : 'none';
+      if (matches) {
+        supportingVisible++;
+        visibleCount++;
+      }
+    });
+
+    if (supportingGrid) {
+      supportingGrid.style.display = supportingVisible > 0 ? 'grid' : 'none';
     }
 
-    // 3. Personal Resume Website Illustration
-    if (t.includes('resume') || t.includes('portfolio') || t.includes('personal')) {
-      return `
-        <div class="project-visual visual-sand">
-          <div class="portfolio-layout" aria-hidden="true">
-            <div class="portfolio-top">
-              <span class="portfolio-mark">epk.</span>
-              <span class="portfolio-nav"></span>
-            </div>
-            <div class="portfolio-hero">
-              <i></i><i></i>
-            </div>
-            <div class="portfolio-bottom">
-              <i></i><i></i><i></i>
-            </div>
-          </div>
-          <span class="visual-label">Personal site</span>
-        </div>
-      `;
+    // Toggle future scope section visibility (visible on All)
+    const futureScopeSection = document.getElementById('future-scope');
+    if (futureScopeSection) {
+      futureScopeSection.style.display = activeFilter === 'All' ? 'block' : 'none';
     }
 
-    // Fallback Code Workspace Visual
-    return `
-      <div class="project-visual">
-        <div class="mini-window" aria-hidden="true">
-          <div class="window-bar"><i></i><i></i><i></i></div>
-          <div class="mock-line" style="width:75%; margin-bottom:8px"></div>
-          <div class="mock-line" style="width:50%; margin-bottom:8px"></div>
-          <div class="mock-line" style="width:85%"></div>
-        </div>
-        <span class="visual-label">Software</span>
-      </div>
-    `;
+    // Handle empty state
+    let emptyNotice = document.getElementById('project-empty-notice');
+    if (visibleCount === 0) {
+      if (!emptyNotice) {
+        emptyNotice = document.createElement('div');
+        emptyNotice.id = 'project-empty-notice';
+        emptyNotice.className = 'project-empty-state';
+        emptyNotice.innerHTML = `No projects currently tagged with "<strong>${activeFilter}</strong>".`;
+        const container = document.getElementById('projects-container');
+        if (container) container.appendChild(emptyNotice);
+      } else {
+        emptyNotice.innerHTML = `No projects currently tagged with "<strong>${activeFilter}</strong>".`;
+        emptyNotice.style.display = 'block';
+      }
+    } else if (emptyNotice) {
+      emptyNotice.style.display = 'none';
+    }
   };
 
-  const getProjectKicker = (title, techStack) => {
-    const t = title.toLowerCase();
-    if (t.includes('document') || t.includes('universal')) return 'Python · Flask';
-    if (t.includes('lecture')) return 'Student resource';
-    if (t.includes('resume')) return 'Personal website';
-    return techStack ? techStack.slice(0, 2).join(' · ') : 'Web Project';
+  // Initialize filter buttons while preserving active filter state
+  const initFilterButtons = (techList) => {
+    if (!filtersContainer) return;
+    filtersContainer.innerHTML = '';
+    const uniqueTags = ['All', ...techList];
+
+    // If current tag is no longer in list, default to All
+    if (!uniqueTags.includes(currentActiveTag)) {
+      currentActiveTag = 'All';
+    }
+
+    uniqueTags.forEach(tag => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'filter-btn';
+      if (tag === currentActiveTag) btn.classList.add('active');
+      btn.textContent = tag;
+
+      btn.addEventListener('click', () => {
+        filtersContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterProjects(tag);
+      });
+
+      filtersContainer.appendChild(btn);
+    });
   };
 
+  // Default filters based on project tags
+  const initialTechTags = ['Python', 'Flask', 'HTML', 'CSS', 'JavaScript', 'Node.js'];
+  initFilterButtons(initialTechTags);
+
   // =========================================================================
-  // Load Resume & Projects Data Dynamically
+  // 5. Dynamic Data Verification with resume-data.json
   // =========================================================================
-  const resumeJsonUrl = 'resume/resume-data.json';
-  fetch(resumeJsonUrl)
+  fetch('resume/resume-data.json')
     .then(res => {
-      if (!res.ok) throw new Error('Failed to fetch resume-data.json');
+      if (!res.ok) throw new Error('Network response not ok');
       return res.json();
     })
     .then(data => {
-      // 1. Populate Summary Text if present
-      const summaryEl = document.getElementById('summary-text');
-      if (summaryEl && data.summary) {
-        summaryEl.innerHTML = `Hi, I’m <strong>${data.name}</strong>, a B.Tech Information Science student at St. Aloysius. ${data.summary}`;
-      }
-
-      // 2. Populate Education Card
-      if (data.education) {
-        const eduDegree = document.getElementById('edu-degree');
-        const eduInst = document.getElementById('edu-institution');
-        const eduYear = document.getElementById('edu-year');
-        if (eduDegree && data.education.degree) eduDegree.textContent = data.education.degree;
-        if (eduInst && data.education.institution) eduInst.textContent = data.education.institution;
-        if (eduYear && data.education.year) eduYear.textContent = data.education.year;
-      }
-
-      // 3. Populate Skills Lists
-      if (data.skills) {
-        const populateSkillPills = (containerId, items) => {
-          const el = document.getElementById(containerId);
-          if (el && Array.isArray(items)) {
-            el.innerHTML = items.map(item => `<span class="skill">${item}</span>`).join('');
-          }
-        };
-
-        populateSkillPills('skills-lang-list', data.skills.languages);
-        populateSkillPills('skills-web-list', data.skills.web);
-        populateSkillPills('skills-tools-list', data.skills.tools);
-        populateSkillPills('skills-spoken-list', data.spoken_languages);
-      }
-
-      // 4. Render Projects & Filter Bar
-      const projectsContainer = document.getElementById('projects-container');
-      const filtersContainer = document.getElementById('project-filters');
-
-      if (projectsContainer && data.projects && Array.isArray(data.projects)) {
-        const allTechTags = new Set();
+      // Collect all verified tags from json without clobbering active selection
+      if (data.projects && Array.isArray(data.projects)) {
+        const set = new Set();
         data.projects.forEach(p => {
           if (Array.isArray(p.techStack)) {
-            p.techStack.forEach(t => allTechTags.add(t));
+            p.techStack.forEach(t => set.add(t));
           }
         });
-
-        const renderProjects = (activeFilter) => {
-          projectsContainer.innerHTML = '';
-          const filteredProjects = activeFilter === 'All'
-            ? data.projects
-            : data.projects.filter(p => p.techStack && p.techStack.includes(activeFilter));
-
-          filteredProjects.forEach(project => {
-            const article = document.createElement('article');
-            article.className = 'project';
-            article.setAttribute('data-tech', (project.techStack || []).join(' '));
-
-            const visualHtml = getProjectVisualHtml(project.title, project.techStack);
-            const kicker = getProjectKicker(project.title, project.techStack);
-            const tagsHtml = (project.techStack || [])
-              .map(t => `<span class="tag">${t}</span>`)
-              .join('');
-            
-            const linkHref = project.link && project.link !== '#' ? project.link : '#contact';
-            const linkTarget = linkHref.startsWith('http') ? 'target="_blank" rel="noopener"' : '';
-            const linkText = linkHref.startsWith('http') ? 'View project repo ↗' : 'Ask me about this project ↗';
-
-            article.innerHTML = `
-              ${visualHtml}
-              <div class="project-body">
-                <div class="project-index">${kicker}</div>
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-                <div class="tags">
-                  ${tagsHtml}
-                </div>
-                <a class="project-link" href="${linkHref}" ${linkTarget}>
-                  ${linkText}
-                </a>
-              </div>
-            `;
-
-            projectsContainer.appendChild(article);
-          });
-        };
-
-        // Render Filter Buttons
-        if (filtersContainer) {
-          filtersContainer.innerHTML = '';
-          const tagsList = ['All', ...Array.from(allTechTags).sort()];
-
-          tagsList.forEach(tag => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'filter-btn';
-            if (tag === 'All') btn.classList.add('active');
-            btn.textContent = tag;
-
-            btn.addEventListener('click', () => {
-              filtersContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-              btn.classList.add('active');
-              renderProjects(tag);
-            });
-
-            filtersContainer.appendChild(btn);
-          });
-        }
-
-        // Initial render with All
-        renderProjects('All');
+        initFilterButtons(Array.from(set).sort());
       }
     })
     .catch(err => {
-      console.warn('Notice: Loaded static DOM fallback; remote JSON fetch notice:', err.message);
+      console.info('Static content loaded; json background check:', err.message);
     });
 
-  // Contact section now uses accessible direct mailto: link (no form submit handler needed)
-});
+  // =========================================================================
+  // 6. Continuous Scroll-Driven Active Navigation Underline
+  // =========================================================================
+  const navContainer = document.querySelector('.nav-links');
+  let navIndicator = document.querySelector('.nav-indicator');
 
+  if (navContainer && !navIndicator) {
+    navIndicator = document.createElement('span');
+    navIndicator.className = 'nav-indicator';
+    navIndicator.setAttribute('aria-hidden', 'true');
+    navContainer.appendChild(navIndicator);
+  }
+
+  const sectionIds = ['about', 'projects', 'education', 'skills', 'contact'];
+  let sectionData = [];
+  let currentNearestId = null;
+
+  const measureSectionsAndLinks = () => {
+    if (!navContainer) return;
+    const header = document.querySelector('.site-header');
+    const headerHeight = header ? header.offsetHeight : 68;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    sectionData = sectionIds.map((id, index) => {
+      const el = document.getElementById(id);
+      const link = navContainer.querySelector(`a[href="#${id}"]`);
+      if (!el || !link) return null;
+
+      let targetScroll;
+      if (index === sectionIds.length - 1) {
+        // Last section (Contact): use bottom of page so underline arrives smoothly as you reach bottom
+        targetScroll = maxScroll;
+      } else {
+        const rect = el.getBoundingClientRect();
+        targetScroll = Math.max(0, rect.top + window.scrollY - headerHeight);
+      }
+
+      return {
+        id,
+        el,
+        link,
+        targetScroll,
+        left: link.offsetLeft,
+        width: link.offsetWidth
+      };
+    }).filter(Boolean);
+  };
+
+  const updateUnderlineContinuous = () => {
+    if (!navIndicator || !navContainer || sectionData.length === 0) return;
+
+    const scrollY = window.scrollY;
+    const firstSection = sectionData[0];
+    const lastSection = sectionData[sectionData.length - 1];
+
+    let targetLeft = 0;
+    let targetWidth = 0;
+    let targetOpacity = 0;
+    let nearestSection = null;
+
+    if (scrollY < firstSection.targetScroll) {
+      // In hero section before About
+      targetLeft = firstSection.left;
+      targetWidth = firstSection.width;
+      const fadeStart = Math.max(0, firstSection.targetScroll - 180);
+      if (scrollY >= fadeStart && firstSection.targetScroll > fadeStart) {
+        targetOpacity = (scrollY - fadeStart) / (firstSection.targetScroll - fadeStart);
+      } else {
+        targetOpacity = 0;
+      }
+      nearestSection = scrollY >= firstSection.targetScroll / 2 ? firstSection : null;
+    } else if (scrollY >= lastSection.targetScroll) {
+      // Scrolled to or past bottom
+      targetLeft = lastSection.left;
+      targetWidth = lastSection.width;
+      targetOpacity = 1;
+      nearestSection = lastSection;
+    } else {
+      // Between neighbouring sections: interpolate linearly
+      targetOpacity = 1;
+      for (let i = 0; i < sectionData.length - 1; i++) {
+        const a = sectionData[i];
+        const b = sectionData[i + 1];
+
+        if (scrollY >= a.targetScroll && scrollY <= b.targetScroll) {
+          const span = b.targetScroll - a.targetScroll;
+          const t = span > 0 ? (scrollY - a.targetScroll) / span : 0;
+
+          // Continuous linear interpolation for position and width
+          targetLeft = a.left + (b.left - a.left) * t;
+          targetWidth = a.width + (b.width - a.width) * t;
+
+          // Nearest link
+          nearestSection = t >= 0.5 ? b : a;
+          break;
+        }
+      }
+    }
+
+    // Apply directly on every animation frame with no CSS transition lag
+    navIndicator.style.transform = `translateX(${targetLeft}px)`;
+    navIndicator.style.width = `${targetWidth}px`;
+    navIndicator.style.opacity = `${targetOpacity}`;
+
+    // Brighten text of nearer link
+    const newNearestId = nearestSection ? nearestSection.id : null;
+    if (newNearestId !== currentNearestId) {
+      currentNearestId = newNearestId;
+
+      sectionData.forEach(item => {
+        if (item.id === newNearestId) {
+          item.link.classList.add('active');
+          item.link.setAttribute('aria-current', 'true');
+        } else {
+          item.link.classList.remove('active');
+          item.link.removeAttribute('aria-current');
+        }
+      });
+
+      // Synchronize URL hash via replaceState only when nearest section changes
+      if (window.history && window.history.replaceState) {
+        if (newNearestId) {
+          if (window.location.hash !== `#${newNearestId}`) {
+            window.history.replaceState(null, '', `#${newNearestId}`);
+          }
+        } else if (window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+      }
+
+      // Auto-scroll horizontal nav container on narrow mobile screens if needed
+      if (nearestSection && navContainer.scrollWidth > navContainer.clientWidth) {
+        const linkLeft = nearestSection.link.offsetLeft;
+        const linkRight = linkLeft + nearestSection.link.offsetWidth;
+        if (linkLeft < navContainer.scrollLeft) {
+          navContainer.scrollTo({ left: Math.max(0, linkLeft - 16), behavior: 'smooth' });
+        } else if (linkRight > navContainer.scrollLeft + navContainer.clientWidth) {
+          navContainer.scrollTo({ left: linkRight - navContainer.clientWidth + 16, behavior: 'smooth' });
+        }
+      }
+    }
+  };
+
+  let scrollRafId = null;
+  const onScroll = () => {
+    if (scrollRafId === null) {
+      scrollRafId = window.requestAnimationFrame(() => {
+        updateUnderlineContinuous();
+        scrollRafId = null;
+      });
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const onLayoutOrResize = () => {
+    measureSectionsAndLinks();
+    updateUnderlineContinuous();
+  };
+
+  window.addEventListener('resize', onLayoutOrResize);
+  window.addEventListener('load', onLayoutOrResize);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(onLayoutOrResize);
+  }
+
+  // Clicking navigation link: trigger native smooth scroll; underline naturally follows continuously
+  sectionIds.forEach(id => {
+    const link = navContainer?.querySelector(`a[href="#${id}"]`);
+    if (link) {
+      link.addEventListener('click', (e) => {
+        const targetEl = document.getElementById(id);
+        if (targetEl) {
+          e.preventDefault();
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  });
+
+  // Handle browser back/forward navigation
+  window.addEventListener('popstate', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById(hash)) {
+      document.getElementById(hash).scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  // Direct links on initial load / refresh
+  measureSectionsAndLinks();
+  updateUnderlineContinuous();
+  if (window.location.hash) {
+    const initialHash = window.location.hash.replace('#', '');
+    if (document.getElementById(initialHash)) {
+      setTimeout(() => {
+        onLayoutOrResize();
+      }, 100);
+    }
+  }
+
+  // =========================================================================
+  // 7. Copy Email Address Action
+  // =========================================================================
+  const copyEmailBtn = document.getElementById('copyEmailBtn');
+  const copyFeedback = document.getElementById('copyFeedback');
+  if (copyEmailBtn) {
+    const emailToCopy = 'prathyush123kumar@gmail.com';
+    let copyTimeout = null;
+
+    const showCopiedState = () => {
+      copyEmailBtn.classList.add('copied');
+      const textSpan = copyEmailBtn.querySelector('.copy-text');
+      const iconSpan = copyEmailBtn.querySelector('.copy-icon');
+      if (textSpan) textSpan.textContent = 'Copied!';
+      if (iconSpan) iconSpan.textContent = '✓';
+      if (copyFeedback) copyFeedback.textContent = 'Email address copied to clipboard: ' + emailToCopy;
+
+      clearTimeout(copyTimeout);
+      copyTimeout = setTimeout(() => {
+        copyEmailBtn.classList.remove('copied');
+        if (textSpan) textSpan.textContent = 'Copy email address';
+        if (iconSpan) iconSpan.textContent = '📋';
+        if (copyFeedback) copyFeedback.textContent = '';
+      }, 2200);
+    };
+
+    const copyText = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(emailToCopy)
+          .then(showCopiedState)
+          .catch(() => {
+            fallbackCopy(emailToCopy, showCopiedState);
+          });
+      } else {
+        fallbackCopy(emailToCopy, showCopiedState);
+      }
+    };
+
+    copyEmailBtn.addEventListener('click', copyText);
+  }
+
+  function fallbackCopy(text, callback) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'absolute';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      callback();
+    } catch (err) {
+      console.warn('Clipboard copy failed', err);
+    }
+    document.body.removeChild(textarea);
+  }
+});

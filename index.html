@@ -1,35 +1,42 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f5f9fe" />
-  <meta name="description" content="E Prathyush Kumar — Information Science student and web developer portfolio." />
-  <title>E Prathyush Kumar — Portfolio</title>
+  <meta name="theme-color" content="#0c131e" />
+  <meta name="description" content="E Prathyush Kumar — Information Science and Engineering student portfolio. Practical web utilities, Python backends, and coursework projects." />
+  <title>E Prathyush Kumar — Portfolio & Resume</title>
   <link rel="stylesheet" href="styles/global.css" />
 </head>
 <body>
-  <!-- Sticky Site Navigation -->
+  <!-- Header & Navigation -->
   <header class="site-header">
     <div class="wrap nav">
       <a class="brand" href="#home" id="brand-link" aria-label="E Prathyush Kumar home">
-        <span class="brand-mark" aria-hidden="true">epk.</span>
-        <span>E Prathyush Kumar</span>
+        <span class="brand-mark" aria-hidden="true">epk</span>
+        <div class="brand-text">
+          <span class="brand-name">E Prathyush Kumar</span>
+          <span class="brand-sub">Student Developer</span>
+        </div>
       </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#resume">Resume</a>
-        <a class="nav-contact" href="#contact">Contact ↗</a>
+
+      <nav class="nav-links" id="main-nav" aria-label="Main navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a class="nav-link nav-contact" href="#contact">Contact ↗</a>
+        <span class="nav-indicator" aria-hidden="true"></span>
       </nav>
+
       <div class="nav-tools">
         <button id="paletteOpenBtn" class="tool-btn" title="Command Search (Ctrl+K)" aria-label="Open command search">
-          <span aria-hidden="true">🔍</span>
+          <span aria-hidden="true">⌘</span>
           <kbd>Ctrl K</kbd>
         </button>
-        <button id="themeBtn" class="tool-btn" title="Toggle Theme" aria-label="Toggle dark/light theme">
-          <span class="theme-icon" aria-hidden="true">🌙</span>
-          <span class="theme-label" style="display:none">Theme</span>
+        <button id="themeBtn" class="tool-btn theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+          <span class="theme-icon" aria-hidden="true">☀️</span>
+          <span class="theme-label">Light</span>
         </button>
       </div>
     </div>
@@ -37,293 +44,547 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="wrap hero" id="home" style="border-top: none;">
-      <div>
-        <div class="eyebrow">Information Science · Mangaluru</div>
-        <h1>I build projects<br><em>as I learn.</em></h1>
-        <p class="hero-copy" id="summary-text">
-          Hi, I’m <strong>E Prathyush Kumar</strong>, a B.Tech Information Science student at St. Aloysius. I spend my time learning Python and web development, building small projects, and improving them as I go.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#projects">Explore projects <span aria-hidden="true">↘</span></a>
-          <button class="button" type="button" id="printCvBtn" onclick="window.print()">Print / save CV <span aria-hidden="true">↗</span></button>
-          <a class="button" href="resume/resume-data.json" download="EPK_Resume.json" title="Download Resume Data as JSON">Download JSON CV <span aria-hidden="true">↗</span></a>
+    <section class="wrap hero-section" id="home">
+      <div class="hero-intro">
+        <div class="hero-status">
+          <span class="status-pulse" aria-hidden="true"></span>
+          <span>2nd Year B.Tech ISE · St. Aloysius University, Mangaluru</span>
         </div>
-        <div class="hero-note">
-          <span class="note-dot" aria-hidden="true"></span>
-          <span>Learning by building and fixing things</span>
+
+        <h1 class="hero-title">
+          E Prathyush Kumar
+        </h1>
+        
+        <p class="hero-tagline">
+          Information Science student building practical software and web tools.
+        </p>
+
+        <p class="hero-summary" id="summary-text">
+          I'm an Information Science and Engineering student at St. Aloysius. I build small Python and Flask tools, work on web projects, and am interested in joining hackathon teams.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">
+            <span>Explore Projects</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+          <a class="btn btn-secondary" id="printCvBtn" href="resume/E_Prathyush_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" title="Open CV PDF in new tab to print with native viewer">
+            <span>View / Print CV</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a class="hero-action-link" id="downloadCvBtn" href="resume/E_Prathyush_Kumar_Resume.pdf" download="E_Prathyush_Kumar_Resume.pdf" title="Download E Prathyush Kumar Resume (PDF)">
+            Download CV (PDF) ↓
+          </a>
         </div>
       </div>
 
-      <aside class="profile" aria-label="Quick profile details">
-        <div class="profile-top">
-          <span>A quick intro</span>
-          <span>ISE STUDENT</span>
+      <!-- Quick Briefing & Current Focus Panel -->
+      <aside class="focus-panel" aria-label="Current academic and development focus">
+        <div class="panel-header">
+          <span class="panel-kicker">CURRENT FOCUS</span>
+          <span class="panel-tag">2024–2028</span>
         </div>
-        <div class="profile-initials" aria-hidden="true">EPK</div>
-        <h2>E Prathyush Kumar</h2>
-        <p class="profile-role">Student · Web Developer</p>
-        <div class="profile-divider"></div>
-        <div class="profile-detail">
-          <span>Studying</span>
-          <span id="profile-studying">B.Tech ISE</span>
+
+        <div class="focus-status-card">
+          <span class="focus-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Available for Hackathons</strong>
+            <p>Interested in joining teams on Python backend or clean web development.</p>
+          </div>
         </div>
-        <div class="profile-detail">
-          <span>Focus</span>
-          <span id="profile-focus">Web & Python</span>
-        </div>
-        <div class="profile-detail">
-          <span>Location</span>
-          <span id="profile-location">Mangaluru, India</span>
-        </div>
+
+        <dl class="focus-meta-list">
+          <div class="meta-row">
+            <dt>Degree</dt>
+            <dd id="profile-studying">B.Tech Information Science</dd>
+          </div>
+          <div class="meta-row">
+            <dt>Standing</dt>
+            <dd>2nd Year · 3rd Semester</dd>
+          </div>
+          <div class="meta-row">
+            <dt>Institution</dt>
+            <dd>St. Aloysius, Mangaluru</dd>
+          </div>
+          <div class="meta-row">
+            <dt>Core Tech</dt>
+            <dd id="profile-focus">Python, Flask, HTML, CSS</dd>
+          </div>
+          <div class="meta-row">
+            <dt>Location</dt>
+            <dd id="profile-location">Mangaluru, India</dd>
+          </div>
+        </dl>
       </aside>
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="section-about">
       <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">About</div>
-            <h2 class="section-title">What I’m learning<br>and building.</h2>
-          </div>
-          <p class="section-intro">
-            I’m still building my skills, so I try to keep each project manageable, get the basics working, and improve it from there.
-          </p>
+        <div class="section-header">
+          <span class="section-kicker">ABOUT</span>
+          <h2 class="section-title">Background & Learning Approach</h2>
         </div>
 
-        <div class="about-grid">
-          <div class="about-note">
-            <div>
-              <span class="focus-label">What I’m working on</span>
-              <p>Turning class concepts into small projects I can actually use.</p>
-            </div>
-            <ul class="focus-list">
-              <li>Python and Flask</li>
-              <li>Responsive web layouts</li>
-              <li>Keeping projects organised with Git</li>
-            </ul>
-          </div>
-          <div class="about-text">
+        <div class="about-layout">
+          <div class="about-narrative">
             <p>
-              I study Information Science and Engineering and enjoy the practical side of coding. So far, I’ve worked on a document conversion app concept, a lecture resource site, and this portfolio. I’m most comfortable experimenting with Python, Flask, HTML, and CSS, and I’m still getting more practice with JavaScript and backend development.
+              I learn computer science by building functional utilities from scratch rather than relying on heavy frameworks or templates. Working directly with core languages helps me understand how data structures operate, how network requests flow, and how user interfaces render.
             </p>
+            <p>
+              My academic coursework emphasizes foundational systems—data structures and algorithms in C, object-oriented programming in Java, and relational database management. Outside lectures, I apply these concepts to web utilities with Python and Flask, focusing on clean logic, sensible structure, and responsive design.
+            </p>
+          </div>
+
+          <div class="about-focus-card">
+            <h3 class="focus-card-title">Current Areas of Learning & Practice</h3>
+            <ul class="learning-list">
+              <li>
+                <strong>Python & Web Utilities:</strong> Building lightweight local backends with Flask for document conversion and compression.
+              </li>
+              <li>
+                <strong>Foundations & Algorithms:</strong> Coursework practice in C for data structures and Java for object-oriented programming.
+              </li>
+              <li>
+                <strong>Web Standards:</strong> Writing semantic HTML5, modern vanilla CSS, and accessible JavaScript without unnecessary framework overhead.
+              </li>
+              <li>
+                <strong>Version Control:</strong> Managing project repositories and features systematically with Git and GitHub.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
+    <section id="projects" class="section-projects">
       <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">Projects</div>
-            <h2 class="section-title">A few things<br>I’ve worked on.</h2>
+        <div class="section-header">
+          <div class="section-header-text">
+            <span class="section-kicker">PROJECTS</span>
+            <h2 class="section-title">Featured Work & Applications</h2>
+            <p class="section-desc">
+              Real projects built for practical utility and coursework. Each project reflects genuine technologies used and concrete problems addressed.
+            </p>
           </div>
-          <p class="section-intro">
-            These are a few projects from my coursework and practice. I’ll add direct demo and repository links as I get them ready.
-          </p>
         </div>
 
-        <!-- Filter Tags Bar -->
-        <div class="filter-bar" id="project-filters">
-          <!-- Populated dynamically via JS -->
+        <!-- Filter Bar -->
+        <div class="filter-wrapper" aria-label="Filter projects by technology">
+          <span class="filter-label">Filter by:</span>
+          <div class="filter-bar" id="project-filters">
+            <!-- Populated dynamically via JS -->
+          </div>
         </div>
 
-        <!-- Project Grid -->
-        <div class="project-grid" id="projects-container">
-          <!-- Document Conversion Web App -->
-          <article class="project" data-tech="Python Flask HTML CSS">
-            <div class="project-visual">
-              <div class="mini-window" aria-hidden="true">
-                <div class="window-bar"><i></i><i></i><i></i></div>
-                <div class="mock-doc-row">
-                  <span class="mock-file"></span>
-                  <div style="flex:1">
-                    <div class="mock-line"></div>
-                    <div class="mock-line short" style="margin-top:6px"></div>
+        <!-- Projects Container -->
+        <div id="projects-container" class="projects-display">
+          <!-- Featured Case Study: File Universal -->
+          <article class="featured-project-card" data-tech="Python Flask HTML CSS">
+            <div class="featured-badge">FEATURED CASE STUDY</div>
+            <div class="featured-grid">
+              <div class="featured-info">
+                <span class="project-tag-kicker">Document Utility (In Progress) · Python & Flask</span>
+                <h3 class="featured-title">File Universal — Document Utility</h3>
+                
+                <div class="project-problem-box">
+                  <div class="problem-item">
+                    <span class="problem-label">The Problem:</span>
+                    <p>Public online document converters often impose strict upload limits, display intrusive ads, and require uploading sensitive private documents to external third-party servers.</p>
+                  </div>
+                  <div class="problem-item">
+                    <span class="problem-label">The Solution:</span>
+                    <p>A clean, private local web utility that performs Word to PDF, PDF to Word, document merging, and file compression directly on a Python Flask backend.</p>
                   </div>
                 </div>
-                <div class="mock-doc-row">
-                  <span class="mock-file"></span>
-                  <div style="flex:1">
-                    <div class="mock-line" style="width:48%"></div>
-                    <div class="mock-line short" style="margin-top:6px"></div>
+
+                <div class="tech-pills">
+                  <span class="tech-pill">Python</span>
+                  <span class="tech-pill">Flask</span>
+                  <span class="tech-pill">HTML</span>
+                  <span class="tech-pill">CSS</span>
+                </div>
+
+                <div class="project-links">
+                  <a class="btn btn-sm btn-outline" href="#contact">
+                    <span>Contact me about this project</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- CSS-rendered Interface Mockup: File Universal -->
+              <div class="project-preview-wrap" aria-label="Interface mockup of File Universal application workspace">
+                <div class="preview-app-window">
+                  <div class="window-chrome">
+                    <div class="traffic-lights" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="window-title">File Universal v1.0 — Local Utility</span>
+                    <span class="window-status-pill">Localhost:5000</span>
+                  </div>
+
+                  <div class="app-ui-body">
+                    <div class="app-mode-tabs">
+                      <span class="mode-tab active">Format Converter</span>
+                      <span class="mode-tab">Compressor</span>
+                      <span class="mode-tab">Merge Files</span>
+                    </div>
+
+                    <div class="app-dropzone">
+                      <div class="dropzone-icon" aria-hidden="true">📄</div>
+                      <div class="dropzone-text">
+                        <strong>quarterly_report.docx</strong>
+                        <span>2.4 MB · Word Document ready</span>
+                      </div>
+                      <span class="dropzone-badge">Target: .PDF</span>
+                    </div>
+
+                    <div class="app-options-row">
+                      <div class="option-field">
+                        <span class="field-label">Action</span>
+                        <span class="field-val">DOCX → PDF</span>
+                      </div>
+                      <div class="option-field">
+                        <span class="field-label">Quality</span>
+                        <span class="field-val">High Print</span>
+                      </div>
+                      <div class="option-field">
+                        <span class="field-label">Backend</span>
+                        <span class="field-val">Flask / Python</span>
+                      </div>
+                    </div>
+
+                    <div class="app-queue">
+                      <div class="queue-header">
+                        <span>Recent Processing Queue</span>
+                        <span class="queue-status">Done (100%)</span>
+                      </div>
+                      <div class="queue-item">
+                        <span class="file-icon">✓</span>
+                        <span class="file-name">lecture_summary.pdf</span>
+                        <span class="file-meta">Compressed 4.2MB → 1.8MB</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <span class="visual-label">File tools</span>
-            </div>
-            <div class="project-body">
-              <div class="project-index">Python · Flask</div>
-              <h3>File Universal — Document Utility</h3>
-              <p>A document tool concept for converting Word and PDF files and compressing them from one place. The backend uses Python and Flask.</p>
-              <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">Flask</span>
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-              </div>
-              <a class="project-link" href="#contact">Ask me about this project <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
-          <!-- Lectures Website -->
-          <article class="project" data-tech="HTML CSS">
-            <div class="project-visual visual-blue">
-              <div class="lecture-layout" aria-hidden="true">
-                <div class="lecture-side"><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="lecture-main">
-                  <div class="lecture-banner"></div>
-                  <div class="lecture-cards"><i></i><i></i><i></i><i></i></div>
+          <!-- Supporting Completed Projects Grid -->
+          <div class="supporting-projects-grid">
+            <!-- Project 2: Personal Resume Website -->
+            <article class="supporting-project-card" data-tech="HTML CSS JavaScript Node.js">
+              <div class="supporting-preview" aria-label="Visual preview of Personal Resume Website">
+                <div class="preview-resume-window">
+                  <div class="window-chrome compact">
+                    <div class="traffic-lights" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="window-title">prathyush.dev · Portfolio Site</span>
+                  </div>
+                  <div class="portfolio-ui-mock">
+                    <div class="portfolio-top-mock">
+                      <span class="mock-logo">epk.</span>
+                      <div class="mock-nav-pills">
+                        <span>About</span><span>Projects</span><span>Resume</span>
+                      </div>
+                    </div>
+                    <div class="portfolio-preview-hero">
+                      <div class="mock-hero-text">
+                        <div class="mock-h-line"></div>
+                        <div class="mock-p-line"></div>
+                      </div>
+                      <div class="mock-theme-badge">Dark / Light System</div>
+                    </div>
+                    <div class="portfolio-features-row">
+                      <span class="feature-tag">Print Stylesheet</span>
+                      <span class="feature-tag">Ctrl+K Search</span>
+                      <span class="feature-tag">JSON Data</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <span class="visual-label">Learning hub</span>
-            </div>
-            <div class="project-body">
-              <div class="project-index">Student resource</div>
-              <h3>Lectures Website</h3>
-              <p>A simple place to organise lecture notes and learning links, so students don’t have to hunt through different folders and messages.</p>
-              <div class="tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-              </div>
-              <a class="project-link" href="#contact">Ask me about this project <span aria-hidden="true">↗</span></a>
-            </div>
-          </article>
 
-          <!-- Personal Resume Website -->
-          <article class="project" data-tech="HTML CSS JavaScript Node.js">
-            <div class="project-visual visual-sand">
-              <div class="portfolio-layout" aria-hidden="true">
-                <div class="portfolio-top">
-                  <span class="portfolio-mark">epk.</span>
-                  <span class="portfolio-nav"></span>
+              <div class="supporting-body">
+                <span class="project-tag-kicker">Personal Portfolio · Web Standards</span>
+                <h3 class="supporting-title">Personal Resume Website</h3>
+                <p class="supporting-desc">
+                  This portfolio itself, designed and engineered from scratch without bloated frameworks. Features dark/light mode switching, keyboard command palette, dynamic filtering, and a print-optimized CV layout.
+                </p>
+                <div class="supporting-meta">
+                  <span class="problem-label">Problem Solved:</span>
+                  <p>Replaces heavy template frameworks with lightweight, accessible vanilla web standards.</p>
                 </div>
-                <div class="portfolio-hero">
-                  <i></i><i></i>
+                <div class="tech-pills">
+                  <span class="tech-pill">HTML</span>
+                  <span class="tech-pill">CSS</span>
+                  <span class="tech-pill">JavaScript</span>
+                  <span class="tech-pill">Node.js</span>
                 </div>
-                <div class="portfolio-bottom">
-                  <i></i><i></i><i></i>
+                <div class="project-links">
+                  <a class="btn btn-sm btn-outline" href="#contact">
+                    <span>Contact me about this project</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </div>
-              <span class="visual-label">Personal site</span>
+            </article>
+          </div>
+
+          <!-- Future Scope / Planned Project Section -->
+          <div class="future-scope-section" id="future-scope">
+            <div class="future-scope-header">
+              <span class="future-scope-kicker">FUTURE SCOPE · PLANNED CONCEPT</span>
+              <h3 class="future-scope-title">Planned Project Scope</h3>
+              <p class="future-scope-desc">
+                Proposed systems and upcoming project ideas planned for future development.
+              </p>
             </div>
-            <div class="project-body">
-              <div class="project-index">Personal website</div>
-              <h3>Personal Resume Website</h3>
-              <p>This site brings my projects, education, and skills together. I’m using it to practise layout, responsive CSS, and a bit of JavaScript.</p>
-              <div class="tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">Node.js</span>
+
+            <article class="future-project-card">
+              <div class="future-badge-row">
+                <span class="future-badge">Planned Project</span>
+                <span class="future-badge-sub">Future Scope</span>
               </div>
-              <a class="project-link" href="#contact">Ask me about this project <span aria-hidden="true">↗</span></a>
+              <h4 class="future-title">Lectures Website</h4>
+              <p class="future-desc">
+                Planned concept for a centralized lecture-resource website to organize semester course notes, lab guides, and reference slides in one place so students can find study materials more easily.
+              </p>
+              <div class="future-context">
+                <span class="problem-label">Proposed Concept:</span>
+                <p>Designed to provide a single, structured semester hub to reduce reliance on scattered messaging groups and expiring file links during exam preparation.</p>
+              </div>
+              <div class="future-status-bar">
+                <span class="future-status-dot" aria-hidden="true"></span>
+                <span>Status: In planning stage · Development planned as coursework progresses</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section-education">
+      <div class="wrap">
+        <div class="section-header">
+          <span class="section-kicker">ACADEMIC BACKGROUND</span>
+          <h2 class="section-title">Education & Coursework</h2>
+        </div>
+
+        <div class="education-timeline">
+          <article class="timeline-card">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <div class="timeline-top">
+                <span class="timeline-badge">CURRENT STUDIES</span>
+                <span class="timeline-period">2024 — 2028 (Expected)</span>
+              </div>
+              <h3 class="timeline-degree" id="edu-degree">Bachelor of Technology in Information Science and Engineering</h3>
+              <p class="timeline-institution" id="edu-institution">St. Aloysius (Deemed to be University), Mangaluru, Karnataka</p>
+              <div class="timeline-status" id="edu-year">Second Year · Third Semester</div>
+
+              <div class="coursework-block">
+                <h4 class="coursework-heading">Core Academic Coursework:</h4>
+                <ul class="coursework-list">
+                  <li><strong>Data Structures & Algorithms in C:</strong> Memory structures, pointers, linked lists, stacks, queues, and algorithm complexity.</li>
+                  <li><strong>Object-Oriented Programming in Java:</strong> Class design, encapsulation, inheritance, polymorphism, and modular structure.</li>
+                  <li><strong>Database Management Systems:</strong> Relational schema design, SQL queries, entity-relationship models, and normalization in SQLite.</li>
+                  <li><strong>Web Development:</strong> Semantic structuring, client-side scripting, layout engines, and HTTP request handling.</li>
+                </ul>
+              </div>
+
+              <p class="timeline-note">
+                Actively participating in weekly programming labs, algorithmic problem-solving exercises, and collaborative student projects.
+              </p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Background / Resume Section -->
-    <section id="resume">
+    <!-- Technical Skills Section -->
+    <section id="skills" class="section-skills">
       <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <div class="section-kicker">Background</div>
-            <h2 class="section-title">Education &<br>technical skills.</h2>
-          </div>
-          <p class="section-intro">
-            What I’m studying now and the tools I’ve been using in class and personal projects.
+        <div class="section-header">
+          <span class="section-kicker">TECHNICAL SKILLS</span>
+          <h2 class="section-title">Tools & Competencies</h2>
+          <p class="section-desc">
+            Specific technologies and tools practiced through coursework and personal software builds.
           </p>
         </div>
 
-        <div class="details-grid" id="skills-container">
-          <div class="detail-panel">
-            <h3 class="panel-title">Education</h3>
-            <div class="education-item">
-              <div class="education-period">Current studies</div>
-              <h3 id="edu-degree">B.Tech — Information Science and Engineering</h3>
-              <p class="education-place" id="edu-institution">St. Aloysius (Deemed to be University), Mangaluru</p>
-              <p class="education-detail" id="edu-year">Second year · Third semester</p>
-              <p class="education-coursework">Core Coursework: Data Structures & Algorithms, Object-Oriented Programming (Java/C), Database Systems, and Modern Web Development.</p>
-            </div>
+        <div class="skills-category-grid" id="skills-container">
+          <!-- Programming Languages -->
+          <div class="skill-category-column">
+            <h3 class="skill-category-title">Programming Languages</h3>
+            <ul class="skill-text-list" id="skills-lang-list">
+              <li>
+                <span class="skill-name">Python</span>
+                <span class="skill-note">Scripting, Flask backend, utilities</span>
+              </li>
+              <li>
+                <span class="skill-name">C</span>
+                <span class="skill-note">Coursework, algorithms, memory concepts</span>
+              </li>
+              <li>
+                <span class="skill-name">Java</span>
+                <span class="skill-note">Object-oriented programming, data structures</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="detail-panel">
-            <h3 class="panel-title">Technical skills</h3>
-            <div class="skills-groups">
-              <div class="skill-group">
-                <h3>Programming languages</h3>
-                <div class="skill-list" id="skills-lang-list">
-                  <span class="skill">Python</span>
-                  <span class="skill">C</span>
-                  <span class="skill">Java</span>
-                </div>
-              </div>
-              <div class="skill-group">
-                <h3>Web & frameworks</h3>
-                <div class="skill-list" id="skills-web-list">
-                  <span class="skill">HTML</span>
-                  <span class="skill">CSS</span>
-                  <span class="skill">JavaScript</span>
-                  <span class="skill">Flask</span>
-                  <span class="skill">Node.js</span>
-                  <span class="skill">Express</span>
-                </div>
-              </div>
-              <div class="skill-group">
-                <h3>Tools & platforms</h3>
-                <div class="skill-list" id="skills-tools-list">
-                  <span class="skill">Git</span>
-                  <span class="skill">GitHub</span>
-                  <span class="skill">VS Code</span>
-                  <span class="skill">SQLite</span>
-                  <span class="skill">Prisma</span>
-                </div>
-              </div>
-              <div class="skill-group">
-                <h3>Spoken languages</h3>
-                <div class="skill-list" id="skills-spoken-list">
-                  <span class="skill">English</span>
-                  <span class="skill">Hindi</span>
-                  <span class="skill">Kannada</span>
-                  <span class="skill">Malayalam</span>
-                </div>
-              </div>
-            </div>
+          <!-- Web & Frameworks -->
+          <div class="skill-category-column">
+            <h3 class="skill-category-title">Web & Frameworks</h3>
+            <ul class="skill-text-list" id="skills-web-list">
+              <li>
+                <span class="skill-name">HTML5</span>
+                <span class="skill-note">Semantic structure, accessibility</span>
+              </li>
+              <li>
+                <span class="skill-name">CSS3</span>
+                <span class="skill-note">Responsive layouts, custom properties</span>
+              </li>
+              <li>
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-note">DOM APIs, event handling, ES6+</span>
+              </li>
+              <li>
+                <span class="skill-name">Flask</span>
+                <span class="skill-note">Routing, file processing, Python APIs</span>
+              </li>
+              <li>
+                <span class="skill-name">Node.js</span>
+                <span class="skill-note">Local tooling, static preview</span>
+              </li>
+              <li>
+                <span class="skill-name">Express</span>
+                <span class="skill-note">Basic routing concepts (familiar)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tools & Environments -->
+          <div class="skill-category-column">
+            <h3 class="skill-category-title">Developer Tools & Systems</h3>
+            <ul class="skill-text-list" id="skills-tools-list">
+              <li>
+                <span class="skill-name">Git & GitHub</span>
+                <span class="skill-note">Version control, branch management</span>
+              </li>
+              <li>
+                <span class="skill-name">VS Code</span>
+                <span class="skill-note">Primary development environment</span>
+              </li>
+              <li>
+                <span class="skill-name">SQLite</span>
+                <span class="skill-note">Relational database storage</span>
+              </li>
+              <li>
+                <span class="skill-name">Command Line / Bash</span>
+                <span class="skill-note">Terminal navigation and scripts</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Spoken Languages & Teamwork -->
+          <div class="skill-category-column">
+            <h3 class="skill-category-title">Spoken Languages</h3>
+            <ul class="skill-text-list" id="skills-spoken-list">
+              <li>
+                <span class="skill-name">English</span>
+                <span class="skill-note">Professional proficiency</span>
+              </li>
+              <li>
+                <span class="skill-name">Hindi</span>
+                <span class="skill-note">Spoken & written</span>
+              </li>
+              <li>
+                <span class="skill-name">Kannada</span>
+                <span class="skill-note">Regional native language</span>
+              </li>
+              <li>
+                <span class="skill-name">Malayalam</span>
+                <span class="skill-note">Spoken language</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="section-contact">
       <div class="wrap">
-        <div class="contact-panel">
-          <div>
-            <div class="section-kicker">Contact</div>
-            <h2>Have a question<br>or project idea?</h2>
-            <p>I’m happy to talk about projects, internships, or things I’m learning. Email is the easiest way to reach me.</p>
+        <div class="contact-card">
+          <div class="contact-intro">
+            <span class="section-kicker">CONTACT</span>
+            <h2 class="contact-heading">Get in Touch</h2>
+            <p class="contact-text">
+              I’m open to student hackathon teams, collaborative software projects, and learning discussions. If you'd like to talk about a project or see my code, send me an email.
+            </p>
+            <div class="contact-status-indicator">
+              <span class="status-pulse" aria-hidden="true"></span>
+              <span>Based in Mangaluru, India · Open to remote collaborations</span>
+            </div>
           </div>
-          <div class="contact-actions">
-            <a class="button button-primary" href="mailto:prathyush123kumar@gmail.com?subject=Message%20from%20your%20portfolio">Email Me <span aria-hidden="true">↗</span></a>
-            <a class="button" href="https://github.com/prathyush123kumar-lgtm" target="_blank" rel="noreferrer">GitHub profile ↗</a>
-            <a class="button" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn profile ↗</a>
+
+          <div class="contact-details">
+            <div class="contact-method">
+              <span class="method-label">Direct Email</span>
+              <span class="method-value highlight">
+                prathyush123kumar@gmail.com
+              </span>
+            </div>
+
+            <div class="contact-method">
+              <span class="method-label">Code Repositories</span>
+              <a class="method-value" href="https://github.com/prathyush123kumar-lgtm" target="_blank" rel="noopener noreferrer">
+                github.com/prathyush123kumar-lgtm ↗
+              </a>
+            </div>
+
+            <div class="contact-method">
+              <span class="method-label">Professional Network</span>
+              <a class="method-value" href="https://www.linkedin.com/in/e-prathyush-kumar" target="_blank" rel="noopener noreferrer">
+                linkedin.com/in/e-prathyush-kumar ↗
+              </a>
+            </div>
+
+            <div class="contact-cta-group">
+              <a class="btn btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=prathyush123kumar@gmail.com&su=Contact%20from%20Portfolio" target="_blank" rel="noopener noreferrer">
+                <span>Compose Email</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <button type="button" class="btn btn-outline copy-email-btn" id="copyEmailBtn" aria-label="Copy email address to clipboard">
+                <span class="copy-icon" aria-hidden="true">📋</span>
+                <span class="copy-text">Copy email address</span>
+              </button>
+              <span class="sr-only" id="copyFeedback" aria-live="polite"></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="wrap footer-inner">
-      <span>© <span id="year">2026</span> E Prathyush Kumar. Built with HTML, CSS and JavaScript.</span>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="wrap footer-content">
+      <div class="footer-copy">
+        <span>© <span id="year">2026</span> E Prathyush Kumar.</span>
+        <span class="footer-note">Information Science & Engineering · St. Aloysius University</span>
+      </div>
       <div class="footer-links">
         <a href="#home">Back to top ↑</a>
+        <a href="https://github.com/prathyush123kumar-lgtm" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/e-prathyush-kumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="resume/E_Prathyush_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume PDF</a>
+        <a href="resume/resume-data.json" download="EPK_Resume.json">JSON Data</a>
       </div>
     </div>
   </footer>
@@ -332,7 +593,7 @@
   <dialog id="command-palette" class="command-palette" aria-label="Command search dialog">
     <div class="palette-content">
       <div class="palette-search-wrapper">
-        <span class="palette-search-icon" aria-hidden="true">🔍</span>
+        <span class="palette-search-icon" aria-hidden="true">⌘</span>
         <input type="text" id="palette-search" placeholder="Type a section or action... (e.g. 'About', 'Projects', 'Theme')" autocomplete="off" />
       </div>
       <ul id="palette-results"></ul>
