@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#f5f9fe" />
+  <meta name="theme-color" content="#0c131e" />
   <title>404 — Page Not Found · E Prathyush Kumar</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles/global.css" />
   <style>
     .not-found-wrap {
@@ -17,26 +18,27 @@
       padding: 60px 20px;
     }
     .not-found-num {
-      font-size: clamp(4.5rem, 12vw, 7.5rem);
-      font-weight: 780;
-      letter-spacing: -0.06em;
+      font-size: clamp(4.5rem, 12vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
       line-height: 1;
-      color: var(--sage);
+      color: var(--accent);
       margin-bottom: 12px;
+      font-family: var(--font-mono);
     }
     .not-found-title {
       font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      font-weight: 720;
-      letter-spacing: -0.04em;
+      font-weight: 700;
+      letter-spacing: -0.03em;
       color: var(--ink);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .not-found-desc {
-      max-width: 480px;
+      max-width: 460px;
       color: var(--muted);
-      font-size: 0.96rem;
+      font-size: 0.94rem;
       line-height: 1.7;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
   </style>
 </head>
@@ -44,11 +46,14 @@
   <header class="site-header">
     <div class="wrap nav">
       <a class="brand" href="index.html" aria-label="E Prathyush Kumar home">
-        <span class="brand-mark" aria-hidden="true">epk.</span>
-        <span>E Prathyush Kumar</span>
+        <span class="brand-mark" aria-hidden="true">epk</span>
+        <div class="brand-text">
+          <span class="brand-name">E Prathyush Kumar</span>
+          <span class="brand-sub">Student Developer</span>
+        </div>
       </a>
       <div class="nav-links">
-        <a class="button button-primary" href="index.html">← Back to Portfolio</a>
+        <a class="btn btn-sm btn-primary" href="index.html">← Back to Portfolio</a>
       </div>
     </div>
   </header>
@@ -56,19 +61,21 @@
   <main>
     <div class="wrap not-found-wrap">
       <div class="not-found-num" aria-hidden="true">404</div>
-      <h1 class="not-found-title">Page not found</h1>
+      <h1 class="not-found-title">Page Not Found</h1>
       <p class="not-found-desc">
-        The page you’re looking for doesn’t exist or may have been moved. Let’s get you back to the main portfolio.
+        The requested URL was not found on this server. Return to the main portfolio to view projects and resume information.
       </p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="index.html">Return to Portfolio <span aria-hidden="true">↘</span></a>
+      <div>
+        <a class="btn btn-primary" href="index.html">Return to Portfolio ↓</a>
       </div>
     </div>
   </main>
 
-  <footer>
-    <div class="wrap footer-inner">
-      <span>© 2026 E Prathyush Kumar.</span>
+  <footer class="site-footer">
+    <div class="wrap footer-content">
+      <div class="footer-copy">
+        <span>© 2026 E Prathyush Kumar.</span>
+      </div>
       <div class="footer-links">
         <a href="index.html">Home</a>
       </div>

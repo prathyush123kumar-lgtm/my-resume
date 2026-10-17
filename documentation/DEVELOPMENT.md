@@ -73,10 +73,10 @@ The UI will automatically update on the next page refresh.
 
 ## 4. Verification & Testing Checklist
 
-- [ ] **Homepage & Layout:** Load `http://localhost:3000` and verify that all sections (`#home`, `#about`, `#projects`, `#resume`, `#contact`) render properly.
+- [ ] **Homepage & Layout:** Load `http://localhost:3000` and verify that all sections (`#home`, `#about`, `#projects`, `#education`, `#skills`, `#contact`) render properly.
 - [ ] **Theme Toggle:** Click the theme button (`☀️`/`🌙`) to toggle dark mode; refresh the page and confirm preference persists.
-- [ ] **Command Palette:** Press `Ctrl + K` or click the search icon; verify dialog opens, filters commands, and navigates correctly.
-- [ ] **Print / Save CV:** Click "Print / save CV" and verify print preview displays clean multi-page document styling without navigation headers.
-- [ ] **Email Me Link:** Click "Email Me" in the contact section; verify it opens your email client with destination `prathyush123kumar@gmail.com` and prefilled subject.
+- [ ] **Command Palette:** Press `Ctrl + K` (or `⌘ K` on macOS) or click the search icon; verify dialog opens, filters commands, and navigates correctly.
+- [ ] **Official PDF & Print Styles:** Click "Print / Open CV" or "Download CV" to verify delivery of `resume/E_Prathyush_Kumar_Resume.pdf`, and test `@media print` CV preview.
+- [ ] **Contact Actions:** Verify "Compose Email" opens Gmail with prefilled recipient and subject; test "Copy email address" and verify accessible confirmation.
 - [ ] **404 Page:** Navigate to `http://localhost:3000/non-existent-page` and verify the custom branded 404 page loads.
-- [ ] **JSON CV Download:** Click "Download JSON CV" and verify `resume/resume-data.json` downloads cleanly.
+- [ ] **Resume Data JSON:** Access `http://localhost:3000/resume/resume-data.json` and verify valid JSON data loads cleanly.

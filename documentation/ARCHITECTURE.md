@@ -21,9 +21,9 @@ Visitor (Browser)
    ├── [3. Content Population] ────> resume/resume-data.json
    │                                   ├── Bio, Education & Contact Details
    │                                   ├── Skill Categories (Languages, Web, Tools)
-   │                                   └── Featured Project Cards & Tag Filters
+   │                                   └── Featured Project Cards & Case Studies
    │
-   └── [4. Contact Interaction] ───> Native Mail Client (mailto: URL)
+   └── [4. Contact Interaction] ───> Gmail Web Compose & Clipboard Copy
                                        └── No backend server, DB, or webhook dependencies
 ```
 
@@ -45,6 +45,7 @@ resume-site/
 ├── styles/
 │   └── global.css               # Editorial paper styles, tokens & print CSS
 ├── 404.html                     # Custom 404 error page (CDN direct delivery)
+├── favicon.svg                  # Vector monogram favicon (EPK branding)
 ├── index.html                   # Main portfolio landing page
 ├── package.json                 # Project scripts (dev preview & build verification)
 ├── package-lock.json            # Dependency lockfile
@@ -70,15 +71,17 @@ resume-site/
 - Eliminates external image requests, prevents broken image links, avoids hotlinking issues, and guarantees fast rendering.
 
 ### D. Direct Accessible Contact
-- Replaced traditional backend database forms with an accessible direct `mailto:` link (`mailto:prathyush123kumar@gmail.com?subject=Message%20from%20your%20portfolio`).
-- Triggers the visitor's native email client directly.
+- Replaced traditional backend database forms with direct, client-side contact actions:
+  - **Static Email Display:** Displays `prathyush123kumar@gmail.com` as ordinary static text without aggressive mailto hijacking.
+  - **Gmail Web Compose:** Opens a prefilled compose tab in Gmail with destination and subject.
+  - **Clipboard Copy:** Instant, accessible one-click copy with live screen-reader confirmation (`aria-live="polite"`).
 - Eliminates server maintenance, spam filtering burdens, and security vulnerabilities associated with storing user messages in databases.
 
 ---
 
 ## 4. Design System & Theme Engine
 
-- **Editorial Paper Aesthetic:** Light paper canvas (`#f5f9fe`) with ink typography (`#121d2c`), subtle border lines (`#e2edf8`), and sage accents (`#4b6f96`).
+- **Editorial Paper Aesthetic:** Dark navy canvas (`#0c131e`) default with crisp slate borders (`#22344c`), ink typography, and restrained blue accents (`#4a8ee0`), with a switchable light paper mode (`#f8fafc`).
 - **Dark Mode:** Supports both system-level `prefers-color-scheme: dark` and explicit manual toggle (`☀️`/`🌙`). Saved preferences persist across sessions in `localStorage`.
-- **Print Styles:** Dedicated `@media print` rules format the site as a clean, multi-page paper CV when visitors click "Print / save CV" or press `Ctrl + P`.
-- **Command Palette (`Ctrl + K`):** Built using the native HTML `<dialog>` element for fast keyboard navigation across sections and quick actions.
+- **Print Styles:** Dedicated `@media print` rules format the site as a clean, multi-page paper CV when visitors print or open the official PDF.
+- **Command Palette (`Ctrl + K` / `⌘ K`):** Built using the native HTML `<dialog>` element for fast keyboard navigation across sections and quick actions, with platform-adaptive shortcut hints (`⌘ K` on macOS, `Ctrl K` on Windows/Linux) and a neutral mobile search button.

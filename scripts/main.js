@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (label) {
         label.textContent = theme === 'dark' ? 'Light' : 'Dark';
       }
+      themeBtn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+      themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     }
     // Update theme-color meta tag for browser address bar
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -51,6 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const search = document.getElementById('palette-search');
   const results = document.getElementById('palette-results');
   const paletteOpenBtn = document.getElementById('paletteOpenBtn');
+
+  // Platform-adaptive shortcut hint (macOS: ⌘ K, Windows/Linux: Ctrl K)
+  const isMac = typeof navigator !== 'undefined' && /Mac|iP(hone|od|ad)/i.test(navigator.platform || navigator.userAgent);
+  if (paletteOpenBtn) {
+    const shortcutKbd = paletteOpenBtn.querySelector('.palette-shortcut');
+    if (shortcutKbd) {
+      shortcutKbd.textContent = isMac ? '⌘ K' : 'Ctrl K';
+    }
+    paletteOpenBtn.title = isMac ? 'Command Search (⌘K)' : 'Command Search (Ctrl+K)';
+  }
 
   const openPalette = () => {
     if (palette && !palette.open) {
@@ -99,24 +111,47 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'View LinkedIn Profile', action: () => { window.open('https://www.linkedin.com/in/e-prathyush-kumar', '_blank'); palette?.close(); } },
   ];
 
+  let activeCommandIndex = 0;
+  let currentFilteredCommands = [];
+
+  const updateActiveCommand = (index) => {
+    if (!results) return;
+    const items = results.querySelectorAll('li:not(.palette-empty)');
+    if (items.length === 0) return;
+    activeCommandIndex = (index + items.length) % items.length;
+    items.forEach((item, i) => {
+      const isSelected = i === activeCommandIndex;
+      item.classList.toggle('active', isSelected);
+      item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      if (isSelected) item.scrollIntoView({ block: 'nearest' });
+    });
+  };
+
   const renderPaletteCommands = (query) => {
     if (!results) return;
     results.innerHTML = '';
     const q = query.toLowerCase().trim();
-    const filtered = commands.filter(c => c.name.toLowerCase().includes(q));
+    currentFilteredCommands = commands.filter(c => c.name.toLowerCase().includes(q));
+    activeCommandIndex = 0;
 
-    if (filtered.length === 0) {
+    if (currentFilteredCommands.length === 0) {
       const emptyLi = document.createElement('li');
       emptyLi.className = 'palette-empty';
+      emptyLi.setAttribute('role', 'status');
       emptyLi.textContent = 'No matching commands found';
       results.appendChild(emptyLi);
       return;
     }
 
-    filtered.forEach(cmd => {
+    currentFilteredCommands.forEach((cmd, idx) => {
       const li = document.createElement('li');
+      li.setAttribute('role', 'option');
+      li.setAttribute('tabindex', '-1');
+      li.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
+      if (idx === 0) li.classList.add('active');
       li.innerHTML = `<span>${cmd.name}</span><kbd aria-hidden="true">↵</kbd>`;
       li.addEventListener('click', cmd.action);
+      li.addEventListener('mouseenter', () => updateActiveCommand(idx));
       results.appendChild(li);
     });
   };
@@ -124,6 +159,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (search) {
     search.addEventListener('input', (e) => {
       renderPaletteCommands(e.target.value);
+    });
+
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        updateActiveCommand(activeCommandIndex + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        updateActiveCommand(activeCommandIndex - 1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (currentFilteredCommands[activeCommandIndex]) {
+          currentFilteredCommands[activeCommandIndex].action();
+        }
+      } else if (e.key === 'Escape') {
+        palette?.close();
+      }
     });
   }
 

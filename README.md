@@ -6,13 +6,14 @@ A fast, accessible, lightweight personal portfolio and developer resume website 
 
 ## Key Features
 
-- **Editorial Paper Aesthetic:** Soft light paper canvas (`#f5f9fe`) with deep slate typography and built-in dark mode toggle.
-- **Single-Source Data Model:** Projects, skills, education, and bio load dynamically from [`resume/resume-data.json`](resume/resume-data.json).
-- **Pure-CSS Window Illustrations:** Interactive, illustrative project mockups rendered entirely in CSS without external image bloat.
-- **Interactive Project Filtering:** Instant category filter pills (*Python*, *Flask*, *HTML*, *CSS*, *JavaScript*).
-- **Command Palette (`Ctrl + K`):** Fast keyboard-driven section search and navigation modal via native `<dialog>`.
-- **Printable CV:** Dedicated print stylesheet (`@media print`) formatting the site as a clean, multi-page paper CV.
-- **Accessible Direct Contact:** Clean `mailto:` direct contact link opening the visitor's native email client without database overhead.
+- **Authentic Student Developer Aesthetic:** Dark navy canvas (`#0c131e`) with restrained blue accents, refined typography, and switchable light paper mode (`#f8fafc`).
+- **Featured Case Study Architecture:** Prominent featured layout for *File Universal* (Python/Flask utility in active development), paired with a supporting project card (*Personal Portfolio*) and clearly distinguished future scope (*Lectures Website*).
+- **Single-Source Data Model:** Canonical resume data loaded from [`resume/resume-data.json`](resume/resume-data.json).
+- **Realistic UI Previews:** Faithful CSS-rendered application workspace previews without image bloat.
+- **Academic Timeline & Categorized Skills:** Clean timeline for B.Tech ISE at St. Aloysius and grouped text skill categories.
+- **Command Palette (`Ctrl + K` / `⌘ K`):** Quick keyboard search and section navigation modal built on native `<dialog>` with platform-adaptive shortcut hints and mobile search button.
+- **Printable CV & Official PDF:** Dedicated print stylesheet (`@media print`) and direct access to the official resume PDF (`resume/E_Prathyush_Kumar_Resume.pdf`).
+- **Accessible Direct Contact:** Static direct email display with Gmail Web Compose action and accessible clipboard copy functionality.
 
 ---
 

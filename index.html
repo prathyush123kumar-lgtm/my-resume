@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0c131e" />
   <meta name="description" content="E Prathyush Kumar — Information Science and Engineering student portfolio. Practical web utilities, Python backends, and coursework projects." />
+  <!-- Social Media & Open Graph Metadata (Domain-agnostic) -->
+  <meta property="og:site_name" content="E Prathyush Kumar Portfolio" />
+  <meta property="og:title" content="E Prathyush Kumar — Portfolio & Resume" />
+  <meta property="og:description" content="Information Science and Engineering student portfolio. Practical web utilities, Python backends, and coursework projects." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="E Prathyush Kumar — Portfolio & Resume" />
+  <meta name="twitter:description" content="Information Science and Engineering student portfolio. Practical web utilities, Python backends, and coursework projects." />
   <title>E Prathyush Kumar — Portfolio & Resume</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles/global.css" />
 </head>
 <body>
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- Header & Navigation -->
   <header class="site-header">
     <div class="wrap nav">
@@ -30,11 +41,14 @@
       </nav>
 
       <div class="nav-tools">
-        <button id="paletteOpenBtn" class="tool-btn" title="Command Search (Ctrl+K)" aria-label="Open command search">
-          <span aria-hidden="true">⌘</span>
-          <kbd>Ctrl K</kbd>
+        <button id="paletteOpenBtn" class="tool-btn" title="Command Search (Ctrl+K)" aria-label="Open command search" aria-haspopup="dialog">
+          <svg class="palette-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7.5"></circle>
+            <line x1="21" y1="21" x2="16.5" y2="16.5"></line>
+          </svg>
+          <kbd class="palette-shortcut">Ctrl K</kbd>
         </button>
-        <button id="themeBtn" class="tool-btn theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+        <button id="themeBtn" class="tool-btn theme-toggle" title="Toggle theme" aria-label="Switch to light theme" aria-pressed="false">
           <span class="theme-icon" aria-hidden="true">☀️</span>
           <span class="theme-label">Light</span>
         </button>
@@ -42,7 +56,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- Hero Section -->
     <section class="wrap hero-section" id="home">
       <div class="hero-intro">
@@ -235,36 +249,24 @@
                     <div class="app-dropzone">
                       <div class="dropzone-icon" aria-hidden="true">📄</div>
                       <div class="dropzone-text">
-                        <strong>quarterly_report.docx</strong>
-                        <span>2.4 MB · Word Document ready</span>
+                        <strong>Select or drop a document to convert</strong>
+                        <span>Supports Word (.docx), PDF (.pdf), and text formats</span>
                       </div>
-                      <span class="dropzone-badge">Target: .PDF</span>
+                      <span class="dropzone-badge">Local Processing</span>
                     </div>
 
                     <div class="app-options-row">
                       <div class="option-field">
-                        <span class="field-label">Action</span>
-                        <span class="field-val">DOCX → PDF</span>
+                        <span class="field-label">Conversion</span>
+                        <span class="field-val">DOCX ↔ PDF</span>
                       </div>
                       <div class="option-field">
-                        <span class="field-label">Quality</span>
-                        <span class="field-val">High Print</span>
+                        <span class="field-label">Privacy</span>
+                        <span class="field-val">100% Local / No Upload</span>
                       </div>
                       <div class="option-field">
                         <span class="field-label">Backend</span>
-                        <span class="field-val">Flask / Python</span>
-                      </div>
-                    </div>
-
-                    <div class="app-queue">
-                      <div class="queue-header">
-                        <span>Recent Processing Queue</span>
-                        <span class="queue-status">Done (100%)</span>
-                      </div>
-                      <div class="queue-item">
-                        <span class="file-icon">✓</span>
-                        <span class="file-name">lecture_summary.pdf</span>
-                        <span class="file-meta">Compressed 4.2MB → 1.8MB</span>
+                        <span class="field-val">Python & Flask</span>
                       </div>
                     </div>
                   </div>
@@ -283,26 +285,26 @@
                     <div class="traffic-lights" aria-hidden="true">
                       <span></span><span></span><span></span>
                     </div>
-                    <span class="window-title">prathyush.dev · Portfolio Site</span>
+                    <span class="window-title">Portfolio Site — Clean Web Standards</span>
                   </div>
                   <div class="portfolio-ui-mock">
                     <div class="portfolio-top-mock">
-                      <span class="mock-logo">epk.</span>
+                      <span class="mock-logo">PK</span>
                       <div class="mock-nav-pills">
-                        <span>About</span><span>Projects</span><span>Resume</span>
+                        <span>About</span><span>Projects</span><span>Education</span><span>Skills</span><span>Contact</span>
                       </div>
                     </div>
                     <div class="portfolio-preview-hero">
                       <div class="mock-hero-text">
-                        <div class="mock-h-line"></div>
-                        <div class="mock-p-line"></div>
+                        <strong>E Prathyush Kumar</strong>
+                        <span>Lightweight, accessible portfolio built without framework overhead</span>
                       </div>
                       <div class="mock-theme-badge">Dark / Light System</div>
                     </div>
                     <div class="portfolio-features-row">
                       <span class="feature-tag">Print Stylesheet</span>
                       <span class="feature-tag">Ctrl+K Search</span>
-                      <span class="feature-tag">JSON Data</span>
+                      <span class="feature-tag">Zero Frameworks</span>
                     </div>
                   </div>
                 </div>
@@ -594,9 +596,9 @@
     <div class="palette-content">
       <div class="palette-search-wrapper">
         <span class="palette-search-icon" aria-hidden="true">⌘</span>
-        <input type="text" id="palette-search" placeholder="Type a section or action... (e.g. 'About', 'Projects', 'Theme')" autocomplete="off" />
+        <input type="text" id="palette-search" placeholder="Type a section or action... (e.g. 'About', 'Projects', 'Theme')" autocomplete="off" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-controls="palette-results" />
       </div>
-      <ul id="palette-results"></ul>
+      <ul id="palette-results" role="listbox" aria-label="Commands"></ul>
     </div>
   </dialog>
 
